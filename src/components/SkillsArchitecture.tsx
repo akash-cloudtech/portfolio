@@ -23,8 +23,10 @@ const SkillsArchitecture = () => {
   const RY_INNER = RY - 20;
   
   const SVG_WIDTH = isMobile ? 400 : 1200;
-  // Increase height for mobile vertical stack
-  const SVG_HEIGHT = isMobile ? 1200 : 1000; 
+  // Dynamic height: calculate based on number of rows (mobile)
+  const numRows = isMobile ? 7 : 4;
+  const rowGap = isMobile ? 160 : 200;
+  const SVG_HEIGHT = isMobile ? (numRows * rowGap + 220) : 1000;
   const VIEWBOX_Y = isMobile ? 0 : -50;
 
   /* 
@@ -163,11 +165,10 @@ const SkillsArchitecture = () => {
         { id: "ai_hpc", title: "AI & HPC", color: "#d946ef", cx: centerX, cy: startY + gapY, skills: aiSkills },
         { id: "devops", title: "DevOps & Automation", color: "#3b82f6", cx: centerX, cy: startY + gapY * 2, skills: devOpsSkills },
         { id: "containers", title: "Orchestration", color: "#6366f1", cx: centerX, cy: startY + gapY * 3, skills: orchestrationSkills },
-        // Need to insert Observability here?
-        { id: "observability", title: "Observability", color: "#8b5cf6", cx: centerX, cy: startY + gapY * 4, skills: observabilitySkills },
-        { id: "data", title: "Data & Persistence", color: "#a855f7", cx: centerX, cy: startY + gapY * 5, skills: dataSkills },
-        { id: "systems", title: "Systems & Servers", color: "#06b6d4", cx: centerX, cy: startY + gapY * 6, skills: systemsSkills }, 
-        { id: "dev_scripting", title: "Dev & Scripting", color: "#14b8a6", cx: centerX, cy: startY + gapY * 7, skills: devScriptingSkills },
+        { id: "data", title: "Data & Persistence", color: "#a855f7", cx: centerX, cy: startY + gapY * 4, skills: dataSkills },
+        { id: "systems", title: "Systems & Servers", color: "#06b6d4", cx: centerX, cy: startY + gapY * 5, skills: systemsSkills }, 
+        { id: "dev_scripting", title: "Dev & Scripting", color: "#14b8a6", cx: centerX, cy: startY + gapY * 6, skills: devScriptingSkills },
+        { id: "observability", title: "Observability", color: "#8b5cf6", cx: centerX, cy: startY + gapY * 7, skills: observabilitySkills },
       ];
     } else {
         // ORIGINAL DESKTOP LAYOUT
