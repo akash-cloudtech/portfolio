@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 
 // Auto-loads all JSON files from src/data/experiences/*.json
 // To add a new experience, just drop a new .json file in that folder.
-const expModules = import.meta.glob('../data/experiences/*.json', { eager: true });
+const expModules = import.meta.glob(['../data/experiences/*.json', '!../data/experiences/_*.json'], { eager: true });
 
 const MONTHS: Record<string, number> = {
   Jan:1, Feb:2, Mar:3, Apr:4, May:5, Jun:6,
@@ -86,10 +86,10 @@ const expDataMap = Object.fromEntries(experiences.map((e: any) => [e.id, e]));
         </div>
       </div>
 
-      <!-- Detail panel: on mobile moves inline after clicked card; on desktop slides in from right -->
+      <!-- Detail panel: on mobile moves inline after clicked card; on desktop slides in from right and sticks to viewport -->
       <div
         id="detail-panel"
-        class="hidden flex-col overflow-hidden transition-[width,max-height] duration-300 flex-shrink-0"
+        class="hidden flex-col overflow-hidden transition-[width,max-height] duration-300 flex-shrink-0 md:sticky md:top-20 md:self-start"
         style="width:0; max-height:0"
       >
         <div class="bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-800 rounded-xl shadow-lg flex flex-col overflow-hidden">
@@ -109,7 +109,7 @@ const expDataMap = Object.fromEntries(experiences.map((e: any) => [e.id, e]));
             >&times;</button>
           </div>
           <!-- Panel body -->
-          <div class="overflow-y-auto p-5 space-y-6 max-h-[60vh] md:max-h-[70vh]">
+          <div class="overflow-y-auto p-5 space-y-6 max-h-[60vh] md:max-h-[calc(100vh-10rem)]">
             <div>
               <div class="text-xs text-slate-400 font-mono uppercase tracking-wider mb-3">Responsibilities &amp; Achievements</div>
               <ul id="panel-details" class="space-y-2.5"></ul>

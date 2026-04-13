@@ -1,0 +1,48 @@
+{
+  "_readme": "Copy this file, rename it to your-company-slug.json, fill in the fields, and delete all '_comment' keys. The file will auto-render on the experience page sorted by period (most recent first).",
+
+  "id": "your-company-slug",
+  "_comment_id": "Unique kebab-case slug. Must match the filename (minus .json). Also used by project JSONs to link projects to this experience — keep it short and stable.",
+
+  "company": "Full Company Name (Optional Division / Parent)",
+  "_comment_company": "Full legal or well-known name. The projects page trims anything in parentheses for compact badge display.",
+
+  "role": "Your Job Title",
+
+  "period": "Jan 2024 – Present",
+  "_comment_period": "Format: 'Mon YYYY – Mon YYYY' or 'Mon YYYY – Present'. Used for sorting (most recent first). Month abbreviations: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec",
+
+  "location": "City, State (Remote / Hybrid / On-site)",
+
+  "tags": ["Cloud", "DevOps", "Automation"],
+  "_comment_tags": "3-5 short topic tags shown as pills on the card. Summarise the domains you worked in. Keep them consistent with other experiences where possible.",
+
+  "metrics": [
+    { "value": "99.9%", "label": "Uptime" },
+    { "value": "50%",   "label": "Cost Savings" },
+    { "value": "10+",   "label": "Projects Led" }
+  ],
+  "_comment_metrics": "2-3 headline numbers shown on the card. Value can be any string (%, $, ×, raw number). Label should be ≤ 15 characters.",
+
+  "highlights": [
+    "One-line area of focus or achievement",
+    "Second focus area",
+    "Third focus area"
+  ],
+  "_comment_highlights": "3-4 bullet fragments shown on the card as a quick preview. These are NOT the full detail bullets — keep them short (≤ 8 words each).",
+
+  "technologies": [
+    "Kubernetes", "Terraform", "Python", "AWS", "GCP",
+    "GitHub Actions", "Ansible", "Docker"
+  ],
+  "_comment_technologies": "Full list of tools and technologies used. First 3 appear as badges on the card; the rest appear in the detail panel. Order by importance / how much you used them.",
+
+  "details": [
+    "Led X initiative that resulted in Y outcome — quantify wherever possible.",
+    "Designed and implemented Z system to solve A problem.",
+    "Automated B process using C tools, reducing manual effort by D%.",
+    "Collaborated with E team to deliver F feature within G timeline.",
+    "Mentored / enabled team on H technology or practice."
+  ],
+  "_comment_details": "Full bullet points shown in the detail panel. Each string is one bullet. Aim for 5-10 bullets. Start with a strong action verb (Led, Built, Designed, Automated, Implemented, Drove). Quantify outcomes where possible."
+}
