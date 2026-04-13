@@ -1,0 +1,29 @@
+{
+  "id": "zycus",
+  "company": "Zycus Infotech",
+  "role": "DevOps Engineer",
+  "period": "Mar 2018 – Aug 2019",
+  "location": "Bangalore/Mumbai, India",
+  "tags": ["DevOps", "Automation", "CI/CD"],
+  "metrics": [
+    { "value": "15+", "label": "Deployments" },
+    { "value": "8",   "label": "Migrations" },
+    { "value": "5+",  "label": "Tools" }
+  ],
+  "highlights": [
+    "Splunk automation & CI/CD pipelines",
+    "AWS infra ops & database migrations",
+    "Containerization & system upgrades"
+  ],
+  "technologies": [
+    "Ansible", "Docker", "Jenkins", "DVC",
+    "Chef", "AWS", "ECS", "CodeDeploy"
+  ],
+  "details": [
+    "Automated Splunk forwarder deployments with Ansible across environments.",
+    "Built CI/CD pipelines for AI apps (Merlin-AI) using Jenkins and DVC.",
+    "Containerized legacy apps (eInvoice CI) with Docker for better scalability.",
+    "Migrated GitLab (v8.5 to 10.5) and Icinga2 (v2.6 to 2.8) with Chef automation.",
+    "Managed AWS ops using CodeDeploy, ECS, and DMS for deployments & migrations."
+  ]
+}

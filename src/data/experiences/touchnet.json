@@ -1,0 +1,35 @@
+{
+  "id": "touchnet",
+  "company": "TouchNet Information Systems (A Global Payments Company)",
+  "role": "Site Reliability Engineer",
+  "period": "May 2022 – Present",
+  "location": "Lenexa, KS (Remote)",
+  "tags": ["Cloud", "AI/ML", "SRE"],
+  "metrics": [
+    { "value": "99.99%", "label": "Uptime" },
+    { "value": "$10k+",  "label": "Savings/mo" },
+    { "value": "50+",    "label": "Deployments" }
+  ],
+  "highlights": [
+    "Cloud migration & AI/ML pipeline automation",
+    "Observability & SLO frameworks",
+    "ChatOps & CI/CD automation"
+  ],
+  "technologies": [
+    "AWS", "GCP", "Python", "Vertex AI", "Kubeflow",
+    "Terraform", "Ansible", "Kubernetes", "ArgoCD",
+    "Azure DevOps", "GitHub Actions", "Jenkins"
+  ],
+  "details": [
+    "Led cloud migration using AWS Migration Hub & Google Data Transfer Service.",
+    "Deployed AI/ML workloads on Vertex AI and Kubeflow with automated pipelines.",
+    "Built GPU-based HPC clusters (NVIDIA DGX, GKE nodes, Cisco UCS).",
+    "Implemented observability with SLOs/SLIs, error budgets & real-time dashboards.",
+    "Automated infra using Python, Terraform, and Ansible to reduce manual toil.",
+    "Engineered fault-tolerant Kubernetes + GCP architectures for ML workloads.",
+    "Maintained CI/CD pipelines via Azure DevOps, GitHub Actions, and Jenkins.",
+    "Integrated ChatOps automation with Python and GCP Functions.",
+    "Designed ETL pipelines in Azure Data Factory for SQL, APIs & Blob Storage.",
+    "Drove cloud governance, cost optimization, and team enablement."
+  ]
+}

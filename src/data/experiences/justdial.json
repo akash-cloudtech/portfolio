@@ -1,0 +1,30 @@
+{
+  "id": "justdial",
+  "company": "Justdial Ltd",
+  "role": "Linux System Administrator",
+  "period": "Aug 2017 – Feb 2018",
+  "location": "Mumbai, India",
+  "tags": ["Linux", "Automation", "Microservices"],
+  "metrics": [
+    { "value": "10+", "label": "Systems" },
+    { "value": "3",   "label": "Stacks" },
+    { "value": "7+",  "label": "Scripts" }
+  ],
+  "highlights": [
+    "Microservices with Spring Boot & REST",
+    "Linux administration & performance tuning",
+    "Automation with Python & Bash"
+  ],
+  "technologies": [
+    "Linux", "Spring Boot", "Python", "Bash",
+    "AngularJS", "TCP/IP", "Agile/Scrum"
+  ],
+  "details": [
+    "Developed microservices using Spring Boot and REST, integrated with AngularJS.",
+    "Administered and optimized Linux systems for high availability.",
+    "Implemented security hardening and best practices for Linux environments.",
+    "Automated workflows using Python and Bash for file processing and validation.",
+    "Applied TCP/IP, DNS, DHCP & firewall expertise for network reliability.",
+    "Followed Agile Scrum covering analysis, design, testing, and deployment."
+  ]
+}

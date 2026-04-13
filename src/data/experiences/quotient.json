@@ -1,0 +1,30 @@
+{
+  "id": "quotient",
+  "company": "Quotient Technology",
+  "role": "DevOps Engineer",
+  "period": "Sep 2019 – Apr 2021",
+  "location": "Bangalore, India",
+  "tags": ["DevOps", "Cloud", "Automation"],
+  "metrics": [
+    { "value": "30+", "label": "Pipelines" },
+    { "value": "3",   "label": "Clouds" },
+    { "value": "12+", "label": "Teams" }
+  ],
+  "highlights": [
+    "CI/CD automation across Azure, AWS & GCP",
+    "Hybrid automation & disaster recovery",
+    "Chatbot & Terraform infrastructure"
+  ],
+  "technologies": [
+    "Azure", "AWS", "GCP", "Terraform", "Jenkins",
+    "GKE", "EKS", "IBM UCD", "Ansible", "Google NLP"
+  ],
+  "details": [
+    "Led CI/CD automation across Azure, AWS, and GCP for multi-team delivery.",
+    "Migrated workloads to GKE and EKS with Terraform-based provisioning.",
+    "Implemented self-healing, disaster recovery, and hybrid automation.",
+    "Developed Google NLP-powered chatbot (QUACK) for ops automation.",
+    "Wrote Ansible playbooks for JBoss, Splunk, and RabbitMQ management.",
+    "Architected scalable, secure cloud infra on AWS (EC2, S3, ELB, IAM) & GCP."
+  ]
+}

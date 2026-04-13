@@ -1,110 +1,314 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+// Auto-loads all JSON files from src/data/experiences/*.json
+// To add a new experience, just drop a new .json file in that folder.
+const expModules = import.meta.glob('../data/experiences/*.json', { eager: true });
+
+const MONTHS: Record<string, number> = {
+  Jan:1, Feb:2, Mar:3, Apr:4, May:5, Jun:6,
+  Jul:7, Aug:8, Sep:9, Oct:10, Nov:11, Dec:12
+};
+function parsePeriodStart(period: string): number {
+  // e.g. "May 2022 – Present" or "Sep 2019 – Apr 2021"
+  const part = period.split(/\s[–-]\s/)[0].trim(); // "May 2022"
+  const [mon, yr] = part.split(' ');
+  return (parseInt(yr) * 12) + (MONTHS[mon] ?? 0);
+}
+
+const experiences = (Object.values(expModules) as any[])
+  .map((m: any) => m.default ?? m)
+  .sort((a: any, b: any) => parsePeriodStart(b.period) - parsePeriodStart(a.period)); // most recent first
+
+// Map of id -> full experience data, passed to client script via define:vars
+const expDataMap = Object.fromEntries(experiences.map((e: any) => [e.id, e]));
 ---
 
-<Layout title="Experience | Akash Verma">
-	<div class="flex flex-col gap-8">
-		<header class="border-b border-slate-200 dark:border-slate-800 pb-6 transition-colors">
-			<h1 class="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4 transition-colors">Experience</h1>
-			<p class="text-slate-600 dark:text-slate-400 text-lg transition-colors">A timeline of my professional journey in Site Reliability and Cloud Engineering.</p>
-		</header>
+<Layout title="Experience">
+  <div class="flex flex-col gap-8">
 
-		<div class="relative border-l border-slate-200 dark:border-slate-800 ml-4 md:ml-6 space-y-12 pb-8 transition-colors">
-			
-			<!-- TouchNet -->
-			<div class="relative pl-8 md:pl-0">
-				<div class="md:hidden absolute w-4 h-4 bg-emerald-500 rounded-full -left-[25px] top-1.5 border-4 border-slate-50 dark:border-slate-950 transition-colors"></div>
-				<div class="flex flex-col md:flex-row gap-4 md:gap-8">
-					<div class="md:w-1/4 flex flex-col items-start md:items-end text-left md:text-right relative">
-						<div class="hidden md:block absolute w-4 h-4 bg-emerald-500 rounded-full -right-[41px] top-1.5 border-4 border-slate-50 dark:border-slate-950 transition-colors"></div>
-						<span class="text-emerald-600 dark:text-emerald-400 font-mono text-sm font-semibold transition-colors">May 2022 – Present</span>
-						<span class="text-slate-500 font-medium text-sm mt-1">Lenexa, KS (Remote)</span>
-					</div>
-					<div class="md:w-3/4 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 hover:border-emerald-500/30 transition-colors shadow-sm dark:shadow-none">
-						<h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 transition-colors">Site Reliability Engineer</h3>
-						<h4 class="text-lg text-slate-700 dark:text-slate-300 mb-4 transition-colors">TouchNet Information Systems Inc (Global Payments)</h4>
-						<ul class="space-y-3 text-slate-600 dark:text-slate-400 list-disc list-inside marker:text-emerald-500 transition-colors">
-							<li>Led cloud migration initiatives using AWS Migration Hub and Google Data Transfer Service to optimize computing, storage, and network performance.</li>
-							<li>Deployed and managed AI/ML workloads on Vertex AI and Kubeflow, automating training, deployment, and monitoring pipelines.</li>
-							<li>Built and optimized GPU-based HPC clusters (NVIDIA DGX, GKE nodes, Cisco UCS) to enhance performance and reliability of AI workloads.</li>
-							<li>Implemented observability and reliability frameworks with SLOs/SLIs, error budgets, and real-time dashboards for AI and enterprise services.</li>
-							<li>Automated infrastructure and operations using Python, Terraform, and Ansible, reducing manual toil and improving efficiency.</li>
-							<li>Engineered fault-tolerant Kubernetes and GCP architectures to ensure scalability and resilience under high-load ML training scenarios.</li>
-							<li>Developed and maintained CI/CD pipelines (Azure DevOps, GitHub Actions, Jenkins) for infrastructure provisioning and ML deployments.</li>
-							<li>Integrated ChatOps automation via Python and GCP Functions to streamline operations and incident response.</li>
-						</ul>
-					</div>
-				</div>
-			</div>
+    <!-- Header -->
+    <header class="border-b border-slate-200 dark:border-slate-800 pb-6">
+      <h1 class="glow-heading text-4xl font-bold mb-2">Where I Shipped Things</h1>
+      <p class="text-slate-500 dark:text-slate-400 text-lg font-mono">$ git log --author="Akash" --since=2017 --format="%s" <span class="text-emerald-500 dark:text-emerald-400"># turning coffee into uptime, one commit at a time</span></p>
+    </header>
 
-			<!-- Quotient Technology -->
-			<div class="relative pl-8 md:pl-0">
-				<div class="md:hidden absolute w-4 h-4 bg-slate-400 dark:bg-slate-600 rounded-full -left-[25px] top-1.5 border-4 border-slate-50 dark:border-slate-950 transition-colors"></div>
-				<div class="flex flex-col md:flex-row gap-4 md:gap-8">
-					<div class="md:w-1/4 flex flex-col items-start md:items-end text-left md:text-right relative">
-						<div class="hidden md:block absolute w-4 h-4 bg-slate-400 dark:bg-slate-600 rounded-full -right-[41px] top-1.5 border-4 border-slate-50 dark:border-slate-950 transition-colors"></div>
-						<span class="text-emerald-600 dark:text-emerald-400 font-mono text-sm font-semibold transition-colors">Sep 2019 – Apr 2021</span>
-						<span class="text-slate-500 font-medium text-sm mt-1">Bangalore, India</span>
-					</div>
-					<div class="md:w-3/4 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 hover:border-emerald-500/30 transition-colors shadow-sm dark:shadow-none">
-						<h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 transition-colors">DevOps Engineer</h3>
-						<h4 class="text-lg text-slate-700 dark:text-slate-300 mb-4 transition-colors">Quotient Technology</h4>
-						<ul class="space-y-3 text-slate-600 dark:text-slate-400 list-disc list-inside marker:text-emerald-500 transition-colors">
-							<li>Led DevOps initiatives and CI/CD automation across Azure, AWS, and GCP, streamlining multi-team software delivery and release management.</li>
-							<li>Migrated and modernized legacy workloads to GKE and EKS, implementing Terraform-based infrastructure provisioning and automated deployment pipelines.</li>
-							<li>Implemented self-healing, disaster recovery, and hybrid automation using IBM UCD, Jenkins, and WSFTP, ensuring high availability.</li>
-							<li>Developed intelligent automation solutions, including a Google NLP–powered chatbot (QUACK) and Ansible playbooks for JBoss, Splunk, and RabbitMQ.</li>
-							<li>Architected scalable, secure, and fault-tolerant cloud infrastructures leveraging AWS (EC2, S3, ELB, IAM) and GCP services.</li>
-						</ul>
-					</div>
-				</div>
-			</div>
+    <!-- Main layout wrapper: side-by-side on desktop, stacked on mobile -->
+    <div id="exp-layout" class="flex flex-col md:flex-row gap-6">
 
-			<!-- Zycus Infotech -->
-			<div class="relative pl-8 md:pl-0">
-				<div class="md:hidden absolute w-4 h-4 bg-slate-400 dark:bg-slate-600 rounded-full -left-[25px] top-1.5 border-4 border-slate-50 dark:border-slate-950 transition-colors"></div>
-				<div class="flex flex-col md:flex-row gap-4 md:gap-8">
-					<div class="md:w-1/4 flex flex-col items-start md:items-end text-left md:text-right relative">
-						<div class="hidden md:block absolute w-4 h-4 bg-slate-400 dark:bg-slate-600 rounded-full -right-[41px] top-1.5 border-4 border-slate-50 dark:border-slate-950 transition-colors"></div>
-						<span class="text-emerald-600 dark:text-emerald-400 font-mono text-sm font-semibold transition-colors">Mar 2018 – Aug 2019</span>
-						<span class="text-slate-500 font-medium text-sm mt-1">Bangalore/Mumbai, India</span>
-					</div>
-					<div class="md:w-3/4 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 hover:border-emerald-500/30 transition-colors shadow-sm dark:shadow-none">
-						<h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 transition-colors">DevOps Engineer</h3>
-						<h4 class="text-lg text-slate-700 dark:text-slate-300 mb-4 transition-colors">Zycus Infotech</h4>
-						<ul class="space-y-3 text-slate-600 dark:text-slate-400 list-disc list-inside marker:text-emerald-500 transition-colors">
-							<li>Automated Splunk forwarder deployments and configurations using Ansible, streamlining monitoring setup across environments.</li>
-							<li>Implemented CI/CD pipelines for AI and enterprise apps (e.g., Merlin-AI) using Ansible, Jenkins, and DVC to manage large ML model files.</li>
-							<li>Containerized legacy applications like eInvoice CI using Docker and Jenkins, improving scalability and deployment efficiency.</li>
-							<li>Migrated and upgraded critical systems, including GitLab (v8.5→10.5) and Icinga2 (v2.6→2.8), using automation via Chef and shell scripting.</li>
-							<li>Managed and automated AWS infrastructure operations, leveraging Code Deploy, ECS, and DMS for deployment, backups, and database migrations.</li>
-						</ul>
-					</div>
-				</div>
-			</div>
+      <!-- Cards column: full width by default, shrinks to 42% when panel opens -->
+      <div id="cards-col" class="w-full transition-[width] duration-300" style="min-width:0">
+        <div id="cards-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5 transition-all duration-300">
+          {experiences.map((exp) => (
+            <div
+              class="exp-card group bg-gradient-to-br from-emerald-50 to-white dark:from-slate-900 dark:to-slate-800 border border-emerald-200 dark:border-emerald-800/60 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-emerald-400 dark:hover:border-emerald-600 flex flex-col cursor-pointer transition-all duration-200"
+              data-id={exp.id}
+            >
+              <!-- Header -->
+              <div class="flex flex-col mb-3">
+                <div class="flex items-start justify-between">
+                  <div class="font-bold text-base text-emerald-700 dark:text-emerald-400 leading-tight">{exp.company}</div>
+                </div>
+                <div class="flex items-center justify-between mt-1">
+                  <div class="text-slate-600 dark:text-slate-300 font-medium text-sm">{exp.role}</div>
+                  <span class="text-xs bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400 px-2 py-1 rounded-full font-mono whitespace-nowrap ml-2 flex-shrink-0">{exp.period}</span>
+                </div>
+              </div>
+              <!-- Tags -->
+              <div class="flex flex-wrap gap-1.5 mb-3">
+                {exp.tags.map((tag: string) => (
+                  <span class="bg-slate-100 dark:bg-slate-700/60 text-slate-600 dark:text-slate-300 text-xs px-2 py-0.5 rounded">{tag}</span>
+                ))}
+              </div>
+              <!-- Metrics -->
+              <div class="flex gap-4 mb-3">
+                {exp.metrics.map((m: any) => (
+                  <div class="flex flex-col items-center">
+                    <span class="font-bold text-emerald-600 dark:text-emerald-400 text-lg leading-none">{m.value}</span>
+                    <span class="text-xs text-slate-400 mt-0.5">{m.label}</span>
+                  </div>
+                ))}
+              </div>
+              <!-- Footer -->
+              <div class="flex items-center justify-between mt-auto pt-3 border-t border-slate-100 dark:border-slate-700/50">
+                <div class="flex flex-wrap gap-1.5">
+                  {exp.technologies.slice(0, 3).map((badge: string) => (
+                    <span class="px-1.5 py-0.5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50 rounded text-xs">{badge}</span>
+                  ))}
+                  {exp.technologies.length > 3 && (
+                    <span class="text-slate-400 text-xs">+{exp.technologies.length - 3}</span>
+                  )}
+                </div>
+                <span class="text-xs text-emerald-600 dark:text-emerald-500 font-medium group-hover:underline ml-2 whitespace-nowrap">Click for details →</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
-			<!-- Justdial Ltd -->
-			<div class="relative pl-8 md:pl-0">
-				<div class="md:hidden absolute w-4 h-4 bg-slate-400 dark:bg-slate-600 rounded-full -left-[25px] top-1.5 border-4 border-slate-50 dark:border-slate-950 transition-colors"></div>
-				<div class="flex flex-col md:flex-row gap-4 md:gap-8">
-					<div class="md:w-1/4 flex flex-col items-start md:items-end text-left md:text-right relative">
-						<div class="hidden md:block absolute w-4 h-4 bg-slate-400 dark:bg-slate-600 rounded-full -right-[41px] top-1.5 border-4 border-slate-50 dark:border-slate-950 transition-colors"></div>
-						<span class="text-emerald-600 dark:text-emerald-400 font-mono text-sm font-semibold transition-colors">Aug 2017 – Feb 2018</span>
-						<span class="text-slate-500 font-medium text-sm mt-1">Mumbai, India</span>
-					</div>
-					<div class="md:w-3/4 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 hover:border-emerald-500/30 transition-colors shadow-sm dark:shadow-none">
-						<h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 transition-colors">Linux System Administrator</h3>
-						<h4 class="text-lg text-slate-700 dark:text-slate-300 mb-4 transition-colors">Justdial Ltd</h4>
-						<ul class="space-y-3 text-slate-600 dark:text-slate-400 list-disc list-inside marker:text-emerald-500 transition-colors">
-							<li>Participated in the full software development lifecycle following Agile Scrum methodologies.</li>
-							<li>Developed microservices using Spring Boot and REST frameworks, with front-end integration via Bootstrap and AngularJS.</li>
-							<li>Administered and optimized Linux systems, handling installation, configuration, and performance tuning for high availability.</li>
-							<li>Automated system and data workflows using Python and Bash scripts for tasks like file processing, validation, and movement.</li>
-						</ul>
-					</div>
-				</div>
-			</div>
+      <!-- Detail panel: on mobile moves inline after clicked card; on desktop slides in from right -->
+      <div
+        id="detail-panel"
+        class="hidden flex-col overflow-hidden transition-[width,max-height] duration-300 flex-shrink-0"
+        style="width:0; max-height:0"
+      >
+        <div class="bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-800 rounded-xl shadow-lg flex flex-col overflow-hidden">
+          <!-- Panel header -->
+          <div class="flex items-start justify-between p-5 border-b border-slate-100 dark:border-slate-800 flex-shrink-0">
+            <div class="min-w-0">
+              <div id="panel-company" class="font-bold text-lg text-emerald-700 dark:text-emerald-400 leading-tight"></div>
+              <div id="panel-role" class="text-slate-600 dark:text-slate-300 font-medium text-sm mt-1"></div>
+              <div class="flex flex-wrap items-center gap-2 mt-2">
+                <span id="panel-period" class="text-xs font-mono text-emerald-600 dark:text-emerald-500 bg-emerald-50 dark:bg-emerald-900/30 px-2 py-0.5 rounded-full"></span>
+                <span id="panel-location" class="text-xs text-slate-400 italic"></span>
+              </div>
+            </div>
+            <button
+              id="panel-close"
+              class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-xl flex-shrink-0 ml-3"
+            >&times;</button>
+          </div>
+          <!-- Panel body -->
+          <div class="overflow-y-auto p-5 space-y-6 max-h-[60vh] md:max-h-[70vh]">
+            <div>
+              <div class="text-xs text-slate-400 font-mono uppercase tracking-wider mb-3">Responsibilities &amp; Achievements</div>
+              <ul id="panel-details" class="space-y-2.5"></ul>
+            </div>
+            <div>
+              <div class="text-xs text-slate-400 font-mono uppercase tracking-wider mb-3">Technologies &amp; Tools</div>
+              <div id="panel-badges" class="flex flex-wrap gap-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-		</div>
-	</div>
+    </div>
+  </div>
 </Layout>
+
+<script define:vars={{ expDataMap }}>
+  const cardsCol     = document.getElementById('cards-col');
+  const cardsGrid    = document.getElementById('cards-grid');
+  const panel        = document.getElementById('detail-panel');
+  const panelClose   = document.getElementById('panel-close');
+  const panelCompany = document.getElementById('panel-company');
+  const panelRole    = document.getElementById('panel-role');
+  const panelPeriod  = document.getElementById('panel-period');
+  const panelLoc     = document.getElementById('panel-location');
+  const panelDetails = document.getElementById('panel-details');
+  const panelBadges  = document.getElementById('panel-badges');
+
+  // Original DOM position — used to restore panel after mobile use
+  const panelOriginalParent = panel.parentElement;
+  const panelOriginalAnchor = panel.previousElementSibling; // #cards-col
+
+  let activeId = '';
+  // Track the breakpoint that was active when the panel was opened
+  let openedOnMobile = false;
+
+  function isMobile() { return window.innerWidth < 768; }
+
+  // Hard-reset all layout state — no animation, instant
+  function resetLayout() {
+    panel.style.transition = 'none';
+    panel.style.width      = '0';
+    panel.style.maxHeight  = '0';
+    panel.classList.remove('flex');
+    panel.classList.add('hidden');
+
+    cardsCol.style.width = '';
+    cardsGrid.classList.add('md:grid-cols-2');
+    cardsGrid.classList.remove('grid-cols-1');
+
+    // Restore panel to original DOM position if it was moved
+    if (panel.parentElement !== panelOriginalParent) {
+      panelOriginalAnchor.insertAdjacentElement('afterend', panel);
+    }
+
+    document.querySelectorAll('.exp-card').forEach(c => {
+      c.classList.remove('ring-2', 'ring-emerald-400');
+    });
+
+    // Re-enable transitions after the reset frame
+    requestAnimationFrame(() => { panel.style.transition = ''; });
+  }
+
+  function populatePanel(exp) {
+    panelCompany.textContent = exp.company;
+    panelRole.textContent    = exp.role;
+    panelPeriod.textContent  = exp.period;
+    panelLoc.textContent     = exp.location;
+
+    panelDetails.innerHTML = exp.details
+      .map(d => `<li class="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-300">
+        <span class="text-emerald-500 flex-shrink-0 mt-0.5">›</span><span>${d}</span></li>`)
+      .join('');
+
+    panelBadges.innerHTML = exp.technologies
+      .map(b => `<span class="px-2 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50 rounded text-xs">${b}</span>`)
+      .join('');
+  }
+
+  function openPanel(id) {
+    const exp = expDataMap[id];
+    if (!exp) return;
+    activeId = id;
+    openedOnMobile = isMobile();
+
+    populatePanel(exp);
+
+    document.querySelectorAll('.exp-card').forEach(c => {
+      const isActive = c.dataset.id === id;
+      c.classList.toggle('ring-2', isActive);
+      c.classList.toggle('ring-emerald-400', isActive);
+    });
+
+    if (openedOnMobile) {
+      // Move panel right after the clicked card inside the grid
+      const clickedCard = cardsGrid.querySelector(`.exp-card[data-id="${id}"]`);
+      clickedCard.insertAdjacentElement('afterend', panel);
+      panel.style.width     = '100%';
+      panel.style.maxHeight = '0';
+      panel.classList.remove('hidden');
+      panel.classList.add('flex');
+      requestAnimationFrame(() => {
+        panel.style.maxHeight = '80vh';
+        clickedCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    } else {
+      // Ensure panel is in original position for desktop side-by-side
+      if (panel.parentElement !== panelOriginalParent) {
+        panelOriginalAnchor.insertAdjacentElement('afterend', panel);
+      }
+      panel.style.maxHeight = 'none';
+      panel.style.width     = '0';
+      cardsGrid.classList.remove('md:grid-cols-2');
+      cardsGrid.classList.add('grid-cols-1');
+      cardsCol.style.width = '42%';
+      panel.classList.remove('hidden');
+      panel.classList.add('flex');
+      requestAnimationFrame(() => { panel.style.width = '58%'; });
+    }
+  }
+
+  function closePanel() {
+    activeId = '';
+
+    document.querySelectorAll('.exp-card').forEach(c => {
+      c.classList.remove('ring-2', 'ring-emerald-400');
+    });
+
+    if (openedOnMobile) {
+      panel.style.maxHeight = '0';
+      setTimeout(() => {
+        panel.classList.remove('flex');
+        panel.classList.add('hidden');
+        panel.style.width = '0';
+        panelOriginalAnchor.insertAdjacentElement('afterend', panel);
+      }, 300);
+    } else {
+      panel.style.width = '0';
+      setTimeout(() => {
+        panel.classList.remove('flex');
+        panel.classList.add('hidden');
+        panel.style.maxHeight = '0';
+      }, 300);
+      cardsCol.style.width = '';
+      cardsGrid.classList.add('md:grid-cols-2');
+      cardsGrid.classList.remove('grid-cols-1');
+    }
+  }
+
+  // Debounced resize handler — resets layout when crossing the 768px breakpoint
+  let resizeTimer;
+  let lastBreakpoint = isMobile() ? 'mobile' : 'desktop';
+
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const nowMobile = isMobile();
+      const newBreakpoint = nowMobile ? 'mobile' : 'desktop';
+
+      if (newBreakpoint !== lastBreakpoint) {
+        lastBreakpoint = newBreakpoint;
+        const savedId = activeId;
+        // Instantly wipe all inline state from previous breakpoint
+        resetLayout();
+        activeId = '';
+        // If a panel was open, reopen it in the correct mode for new breakpoint
+        if (savedId) {
+          requestAnimationFrame(() => openPanel(savedId));
+        }
+      }
+    }, 150);
+  });
+
+  document.querySelectorAll('.exp-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.dataset.id;
+      if (id === activeId) closePanel();
+      else openPanel(id);
+    });
+  });
+
+  panelClose.addEventListener('click', closePanel);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+</script>
+
+<style>
+  .glow-heading {
+    color: #059669; /* emerald-600 in light mode so glow is visible */
+    text-shadow:
+      0 0 8px rgba(16, 185, 129, 0.6),
+      0 0 20px rgba(16, 185, 129, 0.35),
+      0 0 40px rgba(16, 185, 129, 0.15);
+  }
+
+  :global(.dark) .glow-heading {
+    color: #f0fdf4; /* near-white in dark mode */
+    text-shadow:
+      0 0 10px rgba(52, 211, 153, 0.65),
+      0 0 28px rgba(52, 211, 153, 0.40),
+      0 0 55px rgba(52, 211, 153, 0.20);
+  }
+</style>
