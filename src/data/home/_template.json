@@ -1,0 +1,43 @@
+{
+  "_info": "Template for src/data/home/profile.json — the single source of truth for the homepage hero, stats, and CTA.",
+
+  "name": "Your Name",
+
+  "roleTitle": "Primary title shown on load. Use ' / ' and ' | ' as separators; they are auto-highlighted.",
+
+  "titleRoulette": [
+    "Primary Title (shown first — matches roleTitle)",
+    "Funny Alt Title 1",
+    "Funny Alt Title 2",
+    "...add as many as you like"
+  ],
+
+  "bio": "One-paragraph bio shown below the role title. Keep it ≤ 2-3 sentences for best readability.",
+
+  "email": "your@email.com",
+
+  "cta": {
+    "heading": "Section heading above the CTA button.",
+    "body": "Supporting paragraph text.",
+    "buttonLabel": "Button label, e.g. 'Let's Talk'"
+  },
+
+  "stats": [
+    {
+      "_info": "Each stat card shows value + label. On hover a Giphy GIF + caption pop up.",
+      "value": "10+",
+      "label": "Years Experience",
+      "gif": "https://media.giphy.com/media/.../giphy.gif",
+      "gifAlt": "Accessible alt text for the GIF",
+      "caption": "Plain-text caption shown below the GIF."
+    },
+    {
+      "_info": "Use captionHTML instead of caption when you need coloured/styled text.",
+      "value": "3",
+      "label": "Cloud Platforms",
+      "gif": "https://media.giphy.com/media/.../giphy.gif",
+      "gifAlt": "Accessible alt text",
+      "captionHTML": "<span class=\"font-bold text-orange-500\">AWS</span> vs <span class=\"font-bold text-blue-500\">Azure</span>"
+    }
+  ]
+}

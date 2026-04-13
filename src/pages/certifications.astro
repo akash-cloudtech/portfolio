@@ -2,11 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import { Terminal, Shield, ExternalLink } from 'lucide-react';
 import certifications from '../data/certifications/certifications.json';
+import profile from '../data/home/profile.json';
 
 const certs = certifications;
 ---
 
-<Layout title="Certifications (Terminal) | Akash Verma">
+<Layout title={`Certifications | ${profile.name}`}>
   <div class="font-mono dark:bg-slate-950 bg-slate-100 text-slate-800 dark:text-slate-300 min-h-screen p-4 md:p-12">
     
     <div class="max-w-6xl mx-auto space-y-12">

@@ -1,0 +1,89 @@
+{
+  "name": "Akash Verma",
+  "tagline": "SRE & Cloud Architect",
+  "metaDescription": "Site Reliability Engineer & Cloud Architect",
+  "headerHandle": "akash-verma",
+  "footerName": "Akash Verma",
+  "social": [
+    {
+      "platform": "github",
+      "label": "GitHub",
+      "url": "https://github.com/akash-cloudtech",
+      "color": "text-black dark:text-white"
+    },
+    {
+      "platform": "linkedin",
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/akashv01/",
+      "color": "text-[#0077b5]"
+    },
+    {
+      "platform": "instagram",
+      "label": "Instagram",
+      "url": "https://www.instagram.com/akash.verma.dso/",
+      "color": "text-[#E1306C]"
+    }
+  ],
+  "roleTitle": "DevOps & SRE / Data & AI | Cloud Architect",
+  "titleRoulette": [
+    "DevOps & SRE / Data & AI | Cloud Architect",
+    "YAML Wrangler & Kubernetes Whisperer",
+    "LLM Fine-Tuner & Prompt Engineer",
+    "Cloud Janitor & Infrastructure Mechanic",
+    "Production Firefighter & Chaos Engineer",
+    "RAG Pipeline Plumber",
+    "Identifying as Root"
+  ],
+  "bio": "Bridging the gap between infrastructure, data, and machine learning. I architect scalable cloud platforms, automate resilient DevOps pipelines, and optimize high performance computing systems for next generation AI workloads.",
+  "email": "averma7304@gmail.com",
+  "resumeUrl": "/resumes/resume.pdf",
+  "cta": {
+    "heading": "Ready to Scale?",
+    "body": "Whether it's optimizing Kubernetes clusters, building ML pipelines, or automating your entire infrastructure, let's build something resilient together.",
+    "buttonLabel": "Let's Talk"
+  },
+  "stats": [
+    {
+      "value": "10+",
+      "label": "Years Experience",
+      "gif": "https://media.giphy.com/media/NTur7XlVDUdqM/giphy.gif",
+      "gifAlt": "This is fine",
+      "caption": "Me in production, 10 years ago."
+    },
+    {
+      "value": "3",
+      "label": "Cloud Platforms",
+      "gif": "https://media.giphy.com/media/26tn33aiUhaTTb81W/giphy.gif",
+      "gifAlt": "Cloud Battle",
+      "captionHTML": "<span class=\"font-bold text-orange-500 dark:text-orange-400\">AWS</span> <span class=\"text-slate-500 mx-1\">vs</span> <span class=\"font-bold text-blue-500 dark:text-blue-400\">Azure</span> <span class=\"text-slate-500 mx-1\">vs</span> <span class=\"font-bold text-yellow-500 dark:text-yellow-400\">GCP</span>"
+    },
+    {
+      "value": "500+",
+      "label": "Compute Managed",
+      "gif": "https://media.giphy.com/media/uVOTxMagGsgXS/giphy.gif",
+      "gifAlt": "Hamster Wheel",
+      "caption": "Running on full capacity!"
+    },
+    {
+      "value": "100+",
+      "label": "Microservices",
+      "gif": "https://media.giphy.com/media/13HgwGsXF0aiGY/giphy.gif",
+      "gifAlt": "Debugging",
+      "caption": "Fix one bug, spawn two more."
+    },
+    {
+      "value": "99.99%",
+      "label": "Target Uptime",
+      "gif": "https://media.giphy.com/media/LRVnPYqM8DLag/giphy.gif",
+      "gifAlt": "Sweating",
+      "caption": "0.01% Error Budget remaining..."
+    },
+    {
+      "value": "∞",
+      "label": "Automated Tasks",
+      "gif": "https://media.giphy.com/media/urvsFBDfR6N32/giphy.gif",
+      "gifAlt": "Robot",
+      "caption": "Destroying manual toil."
+    }
+  ]
+}

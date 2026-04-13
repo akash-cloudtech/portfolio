@@ -4,7 +4,7 @@ import { FitAddon } from '@xterm/addon-fit';
 import { WebLinksAddon } from '@xterm/addon-web-links';
 import 'xterm/css/xterm.css';
 
-const Terminal = () => {
+const Terminal = ({ name = 'Akash Verma', tagline = 'Site Reliability Engineer & Cloud Architect' }) => {
   const terminalRef = useRef(null);
   const xtermRef = useRef(null);
 
@@ -42,7 +42,7 @@ const Terminal = () => {
     xtermRef.current = term;
 
     // Initial welcome message
-    term.writeln('\x1b[1;32mWelcome to Akash Verma\'s Interactive Portfolio\x1b[0m');
+    term.writeln(`\x1b[1;32mWelcome to ${name}'s Interactive Portfolio\x1b[0m`);
     term.writeln('Type \x1b[1;33mhelp\x1b[0m to see available commands.');
     term.writeln('');
     prompt(term);
@@ -117,7 +117,7 @@ const Terminal = () => {
         term.writeln('  \x1b[1;30m(Try "coffee", "sudo rm -rf /", or "git blame")\x1b[0m');
         break;
       case 'whoami':
-        term.writeln('Akash Verma - Site Reliability Engineer & Cloud Architect');
+        term.writeln(`${name} - ${tagline}`);
         term.writeln('Over a decade of expertise in designing, automating, and scaling');
         term.writeln('infrastructure across hybrid cloud and HPC environments.');
         break;
