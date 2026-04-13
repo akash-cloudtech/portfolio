@@ -153,12 +153,12 @@ The **Skills Architecture** page (`/skills`) renders an interactive SVG radial d
 
 ## 🚢 Deployment (GitHub Pages)
 
-This project uses a **two-repo strategy**:
+Everything lives in a single public repo: **`akash-cloudtech/portfolio`**
 
-| Repo | Visibility | Purpose |
-|---|---|---|
-| `akash-cloudtech/portfolio-astro` | 🔒 Private | Source code (this repo) |
-| `akki8400/portfolio` | 🌐 Public | Built `dist/` output, served via GitHub Pages |
+| Branch | Purpose |
+|---|---|
+| `main` | Astro source code |
+| `gh-pages` | Built `dist/` output — served by GitHub Pages |
 
 ### Deploy
 
@@ -166,12 +166,20 @@ This project uses a **two-repo strategy**:
 npm run deploy
 ```
 
-This command builds the site → pushes only the compiled `dist/` output to the public `akki8400/portfolio` repo → GitHub Pages serves it at `https://akki8400.github.io/portfolio/`.
+This command builds the site → pushes the compiled `dist/` output to the `gh-pages` branch → GitHub Pages serves it at `https://akash-cloudtech.github.io/portfolio/`.
 
-Your source code in this repo stays private.
+### Workflow
 
-### First-time GitHub Pages setup (public repo)
-1. Go to `akki8400/portfolio` on GitHub
+```sh
+# Save source changes
+git add . && git commit -m "your message" && git push
+
+# Publish to live site
+npm run deploy
+```
+
+### First-time GitHub Pages setup
+1. Go to `akash-cloudtech/portfolio` on GitHub
 2. Settings → Pages
-3. Source: **Deploy from a branch** → Branch: `main` → folder: `/ (root)`
+3. Source: **Deploy from a branch** → Branch: `gh-pages` → folder: `/ (root)`
 4. Save
