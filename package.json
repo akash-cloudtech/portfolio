@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "npm run build && gh-pages -d dist -r git@github.com:akash-cloudtech/portfolio.git -b main"
+    "deploy": "npm run build && gh-pages -d dist -r git@github.com:akash-cloudtech/portfolio.git -b gh-pages"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
