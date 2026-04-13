@@ -1,0 +1,33 @@
+{
+  "_readme": "This is a template entry. To add a new certification, open certifications.json and append a new object following this schema. Delete all '_comment' keys from real entries.",
+
+  "id": "CERT-PROVIDER-SHORTNAME",
+  "_comment_id": "Unique identifier. Convention: CERT-{PROVIDER_ABBR}-{CERT_ABBR} e.g. CERT-GCP-ACE, CERT-AWS-SAA, CERT-CKA",
+
+  "name": "Full Certification Name",
+  "_comment_name": "Exact official name as it appears on the certificate/badge.",
+
+  "provider": "Google Cloud",
+  "_comment_provider": "Issuing organization. Existing values: Google Cloud | Microsoft | GitHub | Coursera. Add new providers freely.",
+
+  "status": "ACTIVE",
+  "_comment_status": "Options: ACTIVE | EXPIRED. EXPIRED certs are still shown but visually dimmed.",
+
+  "issued": "2025-01-15",
+  "_comment_issued": "ISO date format: YYYY-MM-DD",
+
+  "expires": "2028-01-15",
+  "_comment_expires": "ISO date format: YYYY-MM-DD, OR the string 'Lifetime' for non-expiring credentials.",
+
+  "credentialId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+  "_comment_credentialId": "The credential / badge ID as shown on the certificate or Credly profile.",
+
+  "verifyUrl": "https://www.credly.com/badges/your-badge-id",
+  "_comment_verifyUrl": "Public verification URL. Use the Credly badge URL, Coursera verify URL, or the provider's own verification page.",
+
+  "image": "https://images.credly.com/size/340x340/images/your-image.png",
+  "_comment_image": "Badge image URL. Prefer 340×340 Credly images. For non-Credly certs, use the provider's official badge PNG/SVG. Must be a publicly accessible HTTPS URL.",
+
+  "color": "text-blue-500",
+  "_comment_color": "Tailwind text-color class applied to the provider icon / accent. Common choices:\n    Google Cloud  → text-blue-500\n    Microsoft     → text-blue-600\n    AWS           → text-orange-500\n    GitHub        → text-slate-100 (dark) or text-slate-800\n    HashiCorp     → text-purple-500\n    Red Hat       → text-red-500\n    Linux Found.  → text-yellow-500"
+}
