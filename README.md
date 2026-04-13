@@ -153,13 +153,25 @@ The **Skills Architecture** page (`/skills`) renders an interactive SVG radial d
 
 ## 🚢 Deployment (GitHub Pages)
 
+This project uses a **two-repo strategy**:
+
+| Repo | Visibility | Purpose |
+|---|---|---|
+| `akash-cloudtech/portfolio-astro` | 🔒 Private | Source code (this repo) |
+| `akki8400/portfolio` | 🌐 Public | Built `dist/` output, served via GitHub Pages |
+
+### Deploy
+
 ```sh
-npm run build
-# Deploy the ./dist/ folder to the gh-pages branch
+npm run deploy
 ```
 
-The site is configured with:
-- `site`: `https://akash-cloudtech.github.io`
-- `base`: `/portfolio`
+This command builds the site → pushes only the compiled `dist/` output to the public `akki8400/portfolio` repo → GitHub Pages serves it at `https://akki8400.github.io/portfolio/`.
 
-These are set in `astro.config.mjs`. All internal links and asset URLs respect this base path automatically via `import.meta.env.BASE_URL`.
+Your source code in this repo stays private.
+
+### First-time GitHub Pages setup (public repo)
+1. Go to `akki8400/portfolio` on GitHub
+2. Settings → Pages
+3. Source: **Deploy from a branch** → Branch: `main` → folder: `/ (root)`
+4. Save
