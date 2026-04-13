@@ -1,0 +1,20 @@
+{
+  "id": "cloud-migration",
+  "title": "AWS to GCP Cloud Migration",
+  "company": "touchnet",
+  "period": "2022",
+  "featured": false,
+  "categories": ["Cloud", "Migration", "Infrastructure"],
+  "summary": "Led end-to-end migration of production workloads from AWS to GCP with zero downtime.",
+  "metrics": [
+    { "value": "100%", "label": "Workloads Migrated" },
+    { "value": "0", "label": "Downtime Events" }
+  ],
+  "techBadges": ["GCP", "AWS", "Terraform", "Kubernetes", "Cloud DNS"],
+  "content": [
+    { "type": "text", "value": "TouchNet had several production services running on AWS that needed to be migrated to GCP to consolidate the infrastructure footprint and reduce costs. The challenge was migrating without any downtime for payment-processing services." },
+    { "type": "text", "value": "Designed a phased migration strategy: lift-and-shift for stateless services followed by re-platforming onto GKE for containerized workloads. Terraform was used to provision identical infrastructure stacks on GCP before traffic was cut over." },
+    { "type": "text", "value": "Traffic was migrated using weighted DNS routing via Cloud DNS, incrementally shifting 5% → 25% → 50% → 100% over two weeks while monitoring error rates and latency. Database migrations used GCP Database Migration Service with live replication to minimize data-sync windows." },
+    { "type": "text", "value": "Result: 100% of workloads migrated with zero downtime events. Post-migration infrastructure costs reduced by 22% due to committed-use discounts on GCP and right-sizing of compute resources." }
+  ]
+}

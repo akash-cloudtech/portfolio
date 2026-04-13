@@ -1,0 +1,20 @@
+{
+  "id": "chatops-automation",
+  "title": "ChatOps Automation with GCP Functions",
+  "company": "touchnet",
+  "period": "2022",
+  "featured": false,
+  "categories": ["Automation", "GCP", "SRE"],
+  "summary": "Integrated ChatOps via Python and GCP Functions to automate incident response and operational workflows.",
+  "metrics": [
+    { "value": "60%", "label": "Toil Reduced" },
+    { "value": "5min", "label": "Avg Response Time" }
+  ],
+  "techBadges": ["Python", "GCP Functions", "Slack", "PagerDuty", "Terraform"],
+  "content": [
+    { "type": "text", "value": "On-call engineers were spending significant time on repetitive tasks — restarting services, flushing caches, scaling node pools — all requiring SSH access and manual steps. Incidents that could be resolved in seconds took 15–20 minutes." },
+    { "type": "text", "value": "Built a ChatOps bot backed by GCP Cloud Functions. Slack slash commands triggered Python functions that interfaced with GCP APIs, Kubernetes, and internal tooling. Common runbooks were codified as bot commands: /scale-nodepool, /restart-deployment, /get-logs, /drain-node." },
+    { "type": "text", "value": "All bot actions were logged to Cloud Audit Logs for compliance. PagerDuty webhooks fed into the same bot so incident creation, acknowledgment, and resolution could all happen from Slack without switching context." },
+    { "type": "text", "value": "Outcome: on-call toil dropped 60%, average incident response time fell to under 5 minutes, and new engineers could resolve common incidents without needing platform-level access." }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "linux-automation",
+  "title": "Linux Ops Automation with Python & Bash",
+  "company": "justdial",
+  "period": "2016",
+  "featured": false,
+  "categories": ["Linux", "Automation", "Scripting"],
+  "summary": "Built a library of Python and Bash scripts to automate routine Linux server operations, reducing manual toil.",
+  "metrics": [
+    { "value": "40%", "label": "Ops Toil Reduced" },
+    { "value": "50+", "label": "Scripts Authored" }
+  ],
+  "techBadges": ["Python", "Bash", "Linux", "Cron", "Nagios"],
+  "content": [
+    { "type": "text", "value": "As a junior engineer at Justdial, much of daily work involved repetitive Linux administration: log rotation, disk space checks, process health verification, and user account management across a large fleet of servers. These tasks consumed significant engineer time." },
+    { "type": "text", "value": "Authored 50+ Python and Bash scripts to automate recurring operational tasks. Scripts covered disk usage alerting with automatic cleanup of old log archives, automated service restart with cooldown logic, SSH key rotation, and bulk user provisioning." },
+    { "type": "text", "value": "Scheduled scripts via cron jobs with output redirected to centralised log files monitored by Nagios passive checks. Each script included verbose logging and error exit codes so failures were surfaced transparently via the monitoring stack." },
+    { "type": "text", "value": "Estimated 40% reduction in routine operational toil for the team. Scripts were adopted fleet-wide and subsequently contributed to a shared internal scripts repository maintained as a team resource." }
+  ]
+}

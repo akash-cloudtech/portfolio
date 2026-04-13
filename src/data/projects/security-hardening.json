@@ -1,0 +1,20 @@
+{
+  "id": "security-hardening",
+  "title": "Linux Server Security Hardening",
+  "company": "justdial",
+  "period": "2017",
+  "featured": false,
+  "categories": ["Linux", "Security", "Automation"],
+  "summary": "Hardened 100+ Linux servers to CIS benchmarks using Ansible, eliminating critical audit findings.",
+  "metrics": [
+    { "value": "100+", "label": "Servers Hardened" },
+    { "value": "0", "label": "Critical Findings" }
+  ],
+  "techBadges": ["Ansible", "Linux", "CIS Benchmarks", "Bash", "OpenSCAP"],
+  "content": [
+    { "type": "text", "value": "An internal security audit at Justdial identified dozens of critical and high-severity findings across the Linux server fleet: default SSH configurations, world-writable files, unrestricted SUID binaries, and missing kernel hardening parameters." },
+    { "type": "text", "value": "Mapped all audit findings to CIS Level 1 benchmarks and authored Ansible roles to remediate each finding category. Tasks covered SSH hardening (disable root login, restrict ciphers), PAM password policies, file permission corrections, auditd logging, and sysctl kernel parameter hardening." },
+    { "type": "text", "value": "Used OpenSCAP to generate compliance scan reports before and after applying the hardening playbooks. Each Ansible role was idempotent and safe to re-run, allowing continuous compliance enforcement via scheduled pipeline executions." },
+    { "type": "text", "value": "All 100+ servers brought to CIS Level 1 compliance within 6 weeks. Zero critical findings remained in the follow-up security audit. The Ansible hardening playbooks were adopted as the standard baseline for all new server provisioning." }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "splunk-automation",
+  "title": "Ansible-Based Splunk Deployment Automation",
+  "company": "zycus",
+  "period": "2019",
+  "featured": false,
+  "categories": ["Automation", "Observability", "Linux"],
+  "summary": "Automated Splunk forwarder deployment across 300+ servers using Ansible, replacing manual configuration.",
+  "metrics": [
+    { "value": "300+", "label": "Servers Automated" },
+    { "value": "80%", "label": "Config Time ↓" }
+  ],
+  "techBadges": ["Ansible", "Splunk", "Python", "Bash", "Linux"],
+  "content": [
+    { "type": "text", "value": "Zycus operated 300+ Linux and Windows servers that each required a Splunk Universal Forwarder for centralized log collection. Manual deployment took days per release cycle and was inconsistent across environments." },
+    { "type": "text", "value": "Wrote Ansible playbooks to automate forwarder installation, version upgrades, and input configuration across all server types. An inventory was maintained in a dynamic Ansible inventory script that pulled server lists from the CMDB." },
+    { "type": "text", "value": "Playbooks handled OS-specific nuances (RPM on RHEL, MSI on Windows), certificate rotation for TLS-encrypted forwarding, and idempotent configuration management so re-runs caused no disruption. Deployed via Jenkins pipeline with per-environment approval gates." },
+    { "type": "text", "value": "Deployment time across all 300+ servers reduced from 3 days to under 4 hours. Configuration consistency improved to 100%, resolving chronic log-gap incidents that had plagued the security team." }
+  ]
+}

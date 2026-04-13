@@ -1,0 +1,20 @@
+{
+  "id": "quack-chatbot",
+  "title": "QUACK — NLP-Powered DevOps Chatbot",
+  "company": "quotient",
+  "period": "2021",
+  "featured": true,
+  "categories": ["AI/ML", "Automation", "GCP"],
+  "summary": "Built QUACK, a Dialogflow-powered chatbot for automating infrastructure queries and incident triage.",
+  "metrics": [
+    { "value": "200+", "label": "Intents Automated" },
+    { "value": "70%", "label": "L1 Tickets Deflected" }
+  ],
+  "techBadges": ["Google Dialogflow", "GCP Functions", "Python", "Slack", "PagerDuty"],
+  "content": [
+    { "type": "text", "value": "Operations teams at Quotient fielded hundreds of repetitive Slack questions daily: 'What is the status of this deployment?', 'How do I rotate a secret?', 'Which pods are crashing in prod?'. L1 support burden was unsustainable with a lean SRE team." },
+    { "type": "text", "value": "Designed QUACK using Google Dialogflow for NLP intent classification and GCP Cloud Functions as stateless action handlers. Over 200 intents were trained across 5 domains: deployment status, secret management, log querying, incident creation, and cost reporting." },
+    { "type": "text", "value": "Integrated with Kubernetes API, GCP Logging, PagerDuty, and Vault. QUACK answered questions in natural language in Slack, pulled live data from GCP APIs, and could trigger safe remediation actions like pod restarts or cache flushes after role-based authorization." },
+    { "type": "text", "value": "Outcome: 70% deflection of L1 support tickets from SRE queue. Average response time for operational questions dropped from 20 minutes (human) to under 10 seconds. Freed 2 SRE engineers from on-call rotation support duties." }
+  ]
+}

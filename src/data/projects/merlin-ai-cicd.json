@@ -1,0 +1,20 @@
+{
+  "id": "merlin-ai-cicd",
+  "title": "Merlin AI — MLOps CI/CD Pipeline",
+  "company": "zycus",
+  "period": "2019",
+  "featured": true,
+  "categories": ["AI/ML", "CI/CD", "Automation"],
+  "summary": "Delivered the first MLOps CI/CD pipeline at Zycus for the Merlin AI platform using DVC and Jenkins.",
+  "metrics": [
+    { "value": "5×", "label": "Model Release Speed" },
+    { "value": "100%", "label": "Experiment Tracked" }
+  ],
+  "techBadges": ["DVC", "Jenkins", "Python", "Docker", "AWS S3"],
+  "content": [
+    { "type": "text", "value": "Zycus's Merlin AI team manually trained and deployed ML models with no versioning, reproducibility guarantees, or automated testing. Model releases were infrequent and error-prone, slowing the AI product roadmap." },
+    { "type": "text", "value": "Designed an MLOps pipeline integrating DVC (Data Version Control) for dataset and model artifact versioning, Jenkins for pipeline orchestration, and Docker for containerised training environments. Every git branch triggered an isolated training run." },
+    { "type": "text", "value": "Built automated evaluation gates in the pipeline: if the challenger model did not meet accuracy and latency thresholds versus the current champion, the pipeline failed and notified the team before any deployment occurred. Passed models were pushed to AWS S3 as versioned artifacts." },
+    { "type": "text", "value": "Model release frequency increased 5×. All experiments were reproducible from a DVC pipeline lock file. The time from code commit to production model serving dropped from 2 weeks to under 3 days." }
+  ]
+}

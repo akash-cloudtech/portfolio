@@ -1,0 +1,20 @@
+{
+  "id": "aws-ops",
+  "title": "AWS Operations — CodeDeploy, ECS & DMS",
+  "company": "zycus",
+  "period": "2018",
+  "featured": false,
+  "categories": ["AWS", "Automation", "Infrastructure"],
+  "summary": "Operated and automated AWS CodeDeploy rolling deployments, ECS task management, and DMS database migrations.",
+  "metrics": [
+    { "value": "Zero", "label": "Deployment Rollbacks" },
+    { "value": "50%", "label": "DB Migration Time ↓" }
+  ],
+  "techBadges": ["AWS CodeDeploy", "ECS", "DMS", "CloudFormation", "Python"],
+  "content": [
+    { "type": "text", "value": "Early in my career at Zycus I was embedded into the AWS operations team to manage deployments, container workloads, and database migrations on AWS. The team had grown rapidly and needed operational processes and automation around core AWS services." },
+    { "type": "text", "value": "Managed AWS CodeDeploy deployment groups for EC2-based services, authoring validated AppSpec files and deployment lifecycle hooks in Python/Bash. Implemented automated rollback triggers based on CloudWatch alarm thresholds." },
+    { "type": "text", "value": "Operated Amazon ECS clusters running Docker containers, managing task definition revisions, service auto-scaling policies, and troubleshooting stopped tasks. Wrote CloudFormation templates to standardize ECS service provisioning." },
+    { "type": "text", "value": "Used AWS DMS for database migrations between RDS instances during application upgrades. Scripted pre-migration validation and post-migration data integrity checks in Python, reducing total migration execution time by 50%." }
+  ]
+}

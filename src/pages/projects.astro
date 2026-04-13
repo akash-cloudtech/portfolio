@@ -1,131 +1,572 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const projects = [
-	{
-		title: "Vertex AI ML Pipeline Automation",
-		role: "Site Reliability Engineer",
-		description: "Architected and deployed automated training, deployment, and monitoring pipelines for AI/ML workloads on Google Cloud Vertex AI and Kubeflow.",
-		impact: "Reduced manual toil and improved efficiency for ML deployments under high-load training scenarios.",
-		tech: ["GCP", "Vertex AI", "Kubeflow", "Terraform", "Python"],
-		type: "Case Study"
-	},
-	{
-		title: "Hybrid Cloud Migration to GKE/EKS",
-		role: "DevOps Engineer",
-		description: "Led the migration and modernization of legacy workloads to Google Kubernetes Engine (GKE) and Amazon Elastic Kubernetes Service (EKS).",
-		impact: "Streamlined multi-team software delivery and release management across Azure, AWS, and GCP.",
-		tech: ["AWS", "GCP", "Kubernetes", "Terraform", "Jenkins"],
-		type: "Architecture"
-	},
-	{
-		title: "GPU-Based HPC Cluster Optimization",
-		role: "Site Reliability Engineer",
-		description: "Built and optimized high-performance computing clusters using NVIDIA DGX, GKE nodes, and Cisco UCS.",
-		impact: "Enhanced performance and reliability of AI workloads, ensuring scalability and resilience.",
-		tech: ["NVIDIA DGX", "GKE", "Cisco UCS", "Ansible"],
-		type: "Infrastructure"
-	},
-	{
-		title: "Intelligent ChatOps Automation (QUACK)",
-		role: "DevOps Engineer",
-		description: "Developed a Google NLP-powered chatbot and integrated ChatOps automation via Python and GCP Functions.",
-		impact: "Streamlined operations, incident response, and self-healing disaster recovery.",
-		tech: ["Python", "GCP Functions", "Google NLP", "Ansible"],
-		type: "Automation"
-	}
-];
+// ── Load experiences to build the company registry ──────────────────────────
+const expModules = import.meta.glob('../data/experiences/*.json', { eager: true });
+const experiences = (Object.values(expModules) as any[])
+  .map((m: any) => m.default ?? m);
+
+// companyRegistry: { touchnet: { label: "TouchNet", sortIndex: 0 }, … }
+const companyRegistry: Record<string, { label: string; sortIndex: number }> = {};
+experiences.forEach((exp: any, i: number) => {
+  // Trim any parenthetical suffix from the full company name for compact badge display
+  // e.g. "TouchNet Information Systems (A Global Payments Company)" → "TouchNet Information Systems"
+  const shortLabel = (exp.company as string).split('(')[0].trim();
+  companyRegistry[exp.id] = { label: shortLabel, sortIndex: i };
+});
+
+// ── Load & sort projects ─────────────────────────────────────────────────────
+const projModules = import.meta.glob(['../data/projects/*.json', '!../data/projects/_*.json'], { eager: true });
+const allProjects = (Object.values(projModules) as any[])
+  .map((m: any) => m.default ?? m)
+  .sort((a: any, b: any) => {
+    // 1. featured first
+    if (a.featured !== b.featured) return a.featured ? -1 : 1;
+    // 2. company sort order matches experience timeline (most recent company first)
+    const aSI = companyRegistry[a.company]?.sortIndex ?? 99;
+    const bSI = companyRegistry[b.company]?.sortIndex ?? 99;
+    if (aSI !== bSI) return aSI - bSI;
+    // 3. most recent year first
+    return parseInt(b.period) - parseInt(a.period);
+  });
+
+// ── Derive filter lists ───────────────────────────────────────────────────────
+// Companies — only those that have at least one project, in experience order
+const companiesWithProjects = Array.from(
+  new Set(allProjects.map((p: any) => p.company))
+).sort((a: any, b: any) => {
+  return (companyRegistry[a]?.sortIndex ?? 99) - (companyRegistry[b]?.sortIndex ?? 99);
+});
+
+// Categories — sorted alphabetically, deduplicated
+const allCategories = Array.from(
+  new Set(allProjects.flatMap((p: any) => p.categories as string[]))
+).sort();
+
+// Data map for the client script
+const projectDataMap = Object.fromEntries(allProjects.map((p: any) => [p.id, p]));
 ---
 
-<Layout title="Projects & Case Studies | Akash Verma">
-	<div class="flex flex-col gap-12">
-		<header class="border-b border-slate-200 dark:border-slate-800 pb-6 transition-colors">
-			<h1 class="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4 transition-colors">Projects & Case Studies</h1>
-			<p class="text-slate-600 dark:text-slate-400 text-lg transition-colors">A selection of architectural designs, migrations, and automation solutions I've built.</p>
-		</header>
+<Layout title="Projects">
+  <div class="flex flex-col gap-8">
 
-		<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-			{projects.map(project => (
-				<div class="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden hover:border-emerald-500/30 transition-all group flex flex-col h-full shadow-sm dark:shadow-none">
-					<div class="p-6 flex-grow">
-						<div class="flex justify-between items-start mb-4">
-							<span class="px-3 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-xs font-mono rounded-full border border-emerald-200 dark:border-emerald-800/50 transition-colors">
-								{project.type}
-							</span>
-							<span class="text-slate-500 font-mono text-sm">{project.role}</span>
-						</div>
-						<h3 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-							{project.title}
-						</h3>
-						<p class="text-slate-600 dark:text-slate-400 mb-4 leading-relaxed transition-colors">
-							{project.description}
-						</p>
-						<div class="bg-emerald-50 dark:bg-slate-800/50 rounded-lg p-4 border-l-2 border-emerald-500 mb-6 transition-colors">
-							<p class="text-slate-700 dark:text-slate-300 text-sm transition-colors">
-								<strong class="text-slate-900 dark:text-slate-200">Impact:</strong> {project.impact}
-							</p>
-						</div>
-					</div>
-					<div class="px-6 py-4 bg-slate-50 dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 mt-auto transition-colors">
-						<div class="flex flex-wrap gap-2">
-							{project.tech.map(tech => (
-								<span class="text-xs font-mono text-slate-600 dark:text-slate-400 bg-white dark:bg-slate-800 px-2 py-1 rounded border border-slate-200 dark:border-slate-700 transition-colors">
-									{tech}
-								</span>
-							))}
-						</div>
-					</div>
-				</div>
-			))}
-		</div>
+    <!-- Header -->
+    <header class="border-b border-slate-200 dark:border-slate-800 pb-6">
+      <h1 class="glow-heading text-4xl font-bold mb-2">Things I've Built</h1>
+      <p class="text-slate-500 dark:text-slate-400 text-lg font-mono">$ ls -la ./projects | grep -v README <span class="text-emerald-500 dark:text-emerald-400"># all the good stuff</span></p>
+    </header>
 
-		<!-- IaC Snippet Placeholder -->
-		<section class="mt-8 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-[#1e1e1e] transition-colors shadow-xl">
-			<div class="flex items-center justify-between px-4 py-3 bg-slate-800 border-b border-slate-700">
-				<div class="flex items-center gap-3">
-					<svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-					<span class="text-slate-300 font-mono text-sm">main.tf - GKE Cluster Provisioning</span>
-				</div>
-				<span class="text-slate-500 text-xs font-mono">Infrastructure as Code</span>
-			</div>
-			<div class="p-6 overflow-x-auto bg-[#1e1e1e]">
-				<pre><code class="text-sm font-mono text-slate-300">
-<span class="text-emerald-400">resource</span> <span class="text-blue-400">"google_container_cluster"</span> <span class="text-yellow-300">"primary"</span> {'{'}
-  name     = <span class="text-yellow-300">"ml-training-cluster"</span>
-  location = <span class="text-yellow-300">"us-central1"</span>
+    <!-- Filter bar ─────────────────────────────────────────────────────────── -->
+    <div class="flex flex-col gap-3">
+      <!-- Row 1: Company -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-xs text-slate-400 font-mono uppercase tracking-wider mr-1 whitespace-nowrap">Company:</span>
+        <button
+          class="filter-company-btn active-filter px-3 py-1 text-xs rounded-full font-medium border transition-colors duration-150"
+          data-company="all"
+        >All</button>
+        {companiesWithProjects.map((cid: string) => (
+          <button
+            class="filter-company-btn px-3 py-1 text-xs rounded-full font-medium border transition-colors duration-150 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 bg-transparent hover:border-emerald-400 dark:hover:border-emerald-600"
+            data-company={cid}
+          >{companyRegistry[cid]?.label ?? cid}</button>
+        ))}
+      </div>
+      <!-- Row 2: Category -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-xs text-slate-400 font-mono uppercase tracking-wider mr-1 whitespace-nowrap">Category:</span>
+        <button
+          class="filter-cat-btn active-filter px-3 py-1 text-xs rounded-full font-medium border transition-colors duration-150"
+          data-cat="all"
+        >All</button>
+        {allCategories.map((cat: string) => (
+          <button
+            class="filter-cat-btn px-3 py-1 text-xs rounded-full font-medium border transition-colors duration-150 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 bg-transparent hover:border-emerald-400 dark:hover:border-emerald-600"
+            data-cat={cat}
+          >{cat}</button>
+        ))}
+      </div>
+    </div>
 
-  <span class="text-slate-500"># We can't create a cluster with no node pool defined, but we want to only use</span>
-  <span class="text-slate-500"># separately managed node pools. So we create the smallest possible default</span>
-  <span class="text-slate-500"># node pool and immediately delete it.</span>
-  remove_default_node_pool = <span class="text-purple-400">true</span>
-  initial_node_count       = <span class="text-purple-400">1</span>
+    <!-- Count line -->
+    <p id="filter-count" class="text-xs text-slate-400 font-mono -mt-4"></p>
 
-  workload_identity_config {'{'}
-    workload_pool = <span class="text-yellow-300">"${'{'}var.project_id{'}'}.svc.id.goog"</span>
-  {'}'}
-{'}'}
+    <!-- Main layout ────────────────────────────────────────────────────────── -->
+    <div id="proj-layout" class="flex flex-col md:flex-row gap-6">
 
-<span class="text-emerald-400">resource</span> <span class="text-blue-400">"google_container_node_pool"</span> <span class="text-yellow-300">"gpu_nodes"</span> {'{'}
-  name       = <span class="text-yellow-300">"gpu-node-pool"</span>
-  location   = <span class="text-yellow-300">"us-central1"</span>
-  cluster    = google_container_cluster.primary.name
-  node_count = <span class="text-purple-400">3</span>
+      <!-- Cards column -->
+      <div id="cards-col" class="w-full transition-[width] duration-300" style="min-width:0">
+        <div id="cards-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5 transition-all duration-300">
+          {allProjects.map((proj: any) => (
+            <div
+              class="proj-card group bg-gradient-to-br from-emerald-50 to-white dark:from-slate-900 dark:to-slate-800 border border-emerald-200 dark:border-emerald-800/60 rounded-xl p-5 shadow-sm hover:shadow-md hover:border-emerald-400 dark:hover:border-emerald-600 flex flex-col cursor-pointer transition-all duration-200"
+              data-id={proj.id}
+              data-company={proj.company}
+              data-categories={proj.categories.join(',')}
+            >
+              <!-- Card top row: title + featured star -->
+              <div class="flex items-start justify-between gap-2 mb-2">
+                <div class="font-bold text-sm text-slate-800 dark:text-slate-100 leading-snug">{proj.title}</div>
+                {proj.featured && (
+                  <span class="text-yellow-400 text-base flex-shrink-0" title="Featured">★</span>
+                )}
+              </div>
 
-  node_config {'{'}
-    machine_type = <span class="text-yellow-300">"a2-highgpu-1g"</span> <span class="text-slate-500"># NVIDIA A100 GPU</span>
-    
-    guest_accelerator {'{'}
-      type  = <span class="text-yellow-300">"nvidia-tesla-a100"</span>
-      count = <span class="text-purple-400">1</span>
-    {'}'}
-    
-    oauth_scopes = [
-      <span class="text-yellow-300">"https://www.googleapis.com/auth/cloud-platform"</span>
-    ]
-  {'}'}
-{'}'}
-				</code></pre>
-			</div>
-		</section>
-	</div>
+              <!-- Company + period row -->
+              <div class="flex items-center gap-2 mb-3 flex-wrap">
+                <span class="text-xs bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded font-medium">
+                  {companyRegistry[proj.company]?.label ?? proj.company}
+                </span>
+                <span class="text-xs font-mono text-slate-400">{proj.period}</span>
+              </div>
+
+              <!-- Summary -->
+              <p class="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">{proj.summary}</p>
+
+              <!-- Metrics -->
+              {proj.metrics && proj.metrics.length > 0 && (
+                <div class="flex gap-4 mb-3">
+                  {proj.metrics.map((m: any) => (
+                    <div class="flex flex-col items-center">
+                      <span class="font-bold text-emerald-600 dark:text-emerald-400 text-base leading-none">{m.value}</span>
+                      <span class="text-xs text-slate-400 mt-0.5">{m.label}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <!-- Footer: tech badges + "Click for details" -->
+              <div class="flex items-center justify-between mt-auto pt-3 border-t border-slate-100 dark:border-slate-700/50">
+                <div class="flex flex-wrap gap-1.5">
+                  {proj.techBadges.slice(0, 3).map((badge: string) => (
+                    <span class="px-1.5 py-0.5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50 rounded text-xs">{badge}</span>
+                  ))}
+                  {proj.techBadges.length > 3 && (
+                    <span class="text-slate-400 text-xs">+{proj.techBadges.length - 3}</span>
+                  )}
+                </div>
+                <span class="text-xs text-emerald-600 dark:text-emerald-500 font-medium group-hover:underline ml-2 whitespace-nowrap">Click for details →</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Zero-state message (shown when filters match nothing) -->
+        <div id="no-results" class="hidden py-16 text-center text-slate-400 font-mono text-sm">
+          No projects match the selected filters.
+        </div>
+      </div>
+
+      <!-- Detail panel -->
+      <div
+        id="detail-panel"
+        class="hidden flex-col overflow-hidden transition-[width,max-height] duration-300 flex-shrink-0 md:sticky md:top-20 md:self-start"
+        style="width:0; max-height:0"
+      >
+        <div class="bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-800 rounded-xl shadow-lg flex flex-col overflow-hidden">
+          <!-- Panel header -->
+          <div class="flex items-start justify-between p-5 border-b border-slate-100 dark:border-slate-800 flex-shrink-0">
+            <div class="min-w-0">
+              <div id="panel-title" class="font-bold text-base text-slate-800 dark:text-slate-100 leading-tight"></div>
+              <div class="flex flex-wrap items-center gap-2 mt-2">
+                <span id="panel-company" class="text-xs bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded font-medium"></span>
+                <span id="panel-period" class="text-xs font-mono text-slate-400"></span>
+              </div>
+              <div id="panel-categories" class="flex flex-wrap gap-1.5 mt-2"></div>
+            </div>
+            <button
+              id="panel-close"
+              class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-xl flex-shrink-0 ml-3"
+            >&times;</button>
+          </div>
+
+          <!-- Panel body -->
+          <div class="overflow-y-auto p-5 space-y-6 max-h-[60vh] md:max-h-[calc(100vh-10rem)]">
+
+            <!-- Metrics -->
+            <div id="panel-metrics-wrap">
+              <div class="text-xs text-slate-400 font-mono uppercase tracking-wider mb-3">Impact Metrics</div>
+              <div id="panel-metrics" class="flex flex-wrap gap-6"></div>
+            </div>
+
+            <!-- Content blocks -->
+            <div>
+              <div class="text-xs text-slate-400 font-mono uppercase tracking-wider mb-3">Deep Dive</div>
+              <div id="panel-content" class="space-y-4"></div>
+            </div>
+
+            <!-- Tech badges -->
+            <div>
+              <div class="text-xs text-slate-400 font-mono uppercase tracking-wider mb-3">Tech Stack</div>
+              <div id="panel-badges" class="flex flex-wrap gap-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </Layout>
+
+<script define:vars={{ projectDataMap, companyRegistry }}>
+  const cardsCol   = document.getElementById('cards-col');
+  const cardsGrid  = document.getElementById('cards-grid');
+  const panel      = document.getElementById('detail-panel');
+  const panelClose = document.getElementById('panel-close');
+  const noResults  = document.getElementById('no-results');
+  const filterCount = document.getElementById('filter-count');
+
+  const panelTitle      = document.getElementById('panel-title');
+  const panelCompany    = document.getElementById('panel-company');
+  const panelPeriod     = document.getElementById('panel-period');
+  const panelCategories = document.getElementById('panel-categories');
+  const panelMetrics    = document.getElementById('panel-metrics');
+  const panelContent    = document.getElementById('panel-content');
+  const panelBadges     = document.getElementById('panel-badges');
+
+  const panelOriginalParent = panel.parentElement;
+  const panelOriginalAnchor = panel.previousElementSibling; // #cards-col
+
+  let activeId = '';
+  let openedOnMobile = false;
+  let activeCompany = 'all';
+  let activeCategory = 'all';
+
+  function isMobile() { return window.innerWidth < 768; }
+
+  // ── Filter bar state ─────────────────────────────────────────────────────
+  function setActiveFilterStyle(btns, activeValue) {
+    btns.forEach(btn => {
+      const isActive = btn.dataset.company === activeValue || btn.dataset.cat === activeValue;
+      if (isActive) {
+        btn.classList.add('active-filter');
+        btn.classList.remove('text-slate-600', 'dark:text-slate-300', 'bg-transparent');
+      } else {
+        btn.classList.remove('active-filter');
+        btn.classList.add('text-slate-600', 'dark:text-slate-300', 'bg-transparent');
+      }
+    });
+  }
+
+  function applyFilters() {
+    const allCards = document.querySelectorAll('.proj-card');
+    let visible = 0;
+
+    allCards.forEach(card => {
+      const cardCompany = card.dataset.company;
+      const cardCats = card.dataset.categories.split(',');
+
+      const companyMatch = activeCompany === 'all' || cardCompany === activeCompany;
+      const catMatch = activeCategory === 'all' || cardCats.includes(activeCategory);
+
+      if (companyMatch && catMatch) {
+        card.style.display = '';
+        visible++;
+      } else {
+        card.style.display = 'none';
+        // Close panel if the active project got filtered out
+        if (card.dataset.id === activeId) {
+          closePanel();
+        }
+      }
+    });
+
+    noResults.classList.toggle('hidden', visible > 0);
+    filterCount.textContent = visible === allCards.length
+      ? `Showing all ${visible} projects`
+      : `Showing ${visible} of ${allCards.length} projects`;
+  }
+
+  document.querySelectorAll('.filter-company-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeCompany = btn.dataset.company;
+      setActiveFilterStyle(document.querySelectorAll('.filter-company-btn'), activeCompany);
+      applyFilters();
+    });
+  });
+
+  document.querySelectorAll('.filter-cat-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeCategory = btn.dataset.cat;
+      setActiveFilterStyle(document.querySelectorAll('.filter-cat-btn'), activeCategory);
+      applyFilters();
+    });
+  });
+
+  // Init count
+  applyFilters();
+
+  // ── Layout helpers ────────────────────────────────────────────────────────
+  function resetLayout() {
+    panel.style.transition = 'none';
+    panel.style.width      = '0';
+    panel.style.maxHeight  = '0';
+    panel.classList.remove('flex');
+    panel.classList.add('hidden');
+
+    cardsCol.style.width = '';
+    cardsGrid.classList.add('md:grid-cols-2');
+    cardsGrid.classList.remove('grid-cols-1');
+
+    if (panel.parentElement !== panelOriginalParent) {
+      panelOriginalAnchor.insertAdjacentElement('afterend', panel);
+    }
+
+    document.querySelectorAll('.proj-card').forEach(c => {
+      c.classList.remove('ring-2', 'ring-emerald-400');
+    });
+
+    requestAnimationFrame(() => { panel.style.transition = ''; });
+  }
+
+  // ── Populate panel ────────────────────────────────────────────────────────
+  function populatePanel(proj) {
+    panelTitle.textContent   = proj.title;
+    panelCompany.textContent = companyRegistry[proj.company]?.label ?? proj.company;
+    panelPeriod.textContent  = proj.period;
+
+    panelCategories.innerHTML = proj.categories
+      .map(c => `<span class="px-2 py-0.5 text-xs rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">${c}</span>`)
+      .join('');
+
+    if (proj.metrics && proj.metrics.length) {
+      panelMetrics.innerHTML = proj.metrics
+        .map(m => `<div class="flex flex-col items-center min-w-[60px]">
+          <span class="font-bold text-emerald-600 dark:text-emerald-400 text-2xl leading-none">${m.value}</span>
+          <span class="text-xs text-slate-400 mt-1 text-center">${m.label}</span>
+        </div>`)
+        .join('');
+      document.getElementById('panel-metrics-wrap').style.display = '';
+    } else {
+      document.getElementById('panel-metrics-wrap').style.display = 'none';
+    }
+
+    panelContent.innerHTML = (proj.content || [])
+      .map((block, i) => {
+        if (block.type === 'text') {
+          return `<p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">${block.value}</p>`;
+        }
+        if (block.type === 'image') {
+          return `<figure class="rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
+            <img src="${block.src}" alt="${block.caption ?? ''}" class="w-full object-cover"/>
+            ${block.caption ? `<figcaption class="text-xs text-slate-400 text-center py-2 px-3 bg-slate-50 dark:bg-slate-800">${block.caption}</figcaption>` : ''}
+          </figure>`;
+        }
+        if (block.type === 'code') {
+          const escaped = block.value.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+          return `<div class="code-block rounded-lg overflow-hidden border border-slate-700">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-800 border-b border-slate-700">
+              <div class="flex items-center gap-2">
+                <span class="code-dot bg-red-500"></span><span class="code-dot bg-yellow-500"></span><span class="code-dot bg-green-500"></span>
+                ${block.label ? `<span class="text-slate-400 font-mono text-xs ml-2">${block.label}</span>` : ''}
+              </div>
+              <div class="flex items-center gap-2">
+                ${block.lang ? `<span class="text-slate-500 font-mono text-xs uppercase">${block.lang}</span>` : ''}
+                <button class="copy-btn text-slate-400 hover:text-emerald-400 transition-colors" data-block="${i}" title="Copy code">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                </button>
+              </div>
+            </div>
+            <pre class="overflow-x-auto p-4 bg-[#0d1117] m-0"><code class="text-sm font-mono text-slate-300 leading-relaxed">${escaped}</code></pre>
+          </div>`;
+        }
+        if (block.type === 'callout') {
+          const variants = {
+            info:    { border: 'border-blue-500',   bg: 'bg-blue-500/10',   icon: '💡', label: 'text-blue-400' },
+            warning: { border: 'border-yellow-500', bg: 'bg-yellow-500/10', icon: '⚠️', label: 'text-yellow-400' },
+            success: { border: 'border-emerald-500',bg: 'bg-emerald-500/10',icon: '✅', label: 'text-emerald-400' },
+            tip:     { border: 'border-purple-500', bg: 'bg-purple-500/10', icon: '🔑', label: 'text-purple-400' },
+          };
+          const v = variants[block.variant] ?? variants.info;
+          return `<div class="rounded-lg border-l-4 ${v.border} ${v.bg} p-4">
+            ${block.title ? `<div class="flex items-center gap-2 mb-1.5"><span>${v.icon}</span><span class="text-xs font-semibold uppercase tracking-wider ${v.label}">${block.title}</span></div>` : ''}
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed m-0">${block.value}</p>
+          </div>`;
+        }
+        if (block.type === 'links') {
+          const iconMap = {
+            github:   `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>`,
+            doc:      `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>`,
+            link:     `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>`,
+            blog:     `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>`,
+          };
+          const items = (block.items || []).map(it => {
+            const svg = iconMap[it.icon] ?? iconMap.link;
+            return `<a href="${it.url}" target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-emerald-400 dark:hover:border-emerald-600 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors text-xs font-medium">
+              ${svg} ${it.label}
+            </a>`;
+          }).join('');
+          return `<div>
+            ${block.title ? `<div class="text-xs text-slate-400 font-mono uppercase tracking-wider mb-2">${block.title}</div>` : ''}
+            <div class="flex flex-wrap gap-2">${items}</div>
+          </div>`;
+        }
+        return '';
+      })
+      .join('');
+
+    // Copy-to-clipboard — store raw code values for each block index
+    panelContent._codeBlocks = (proj.content || []).reduce((acc, block, i) => {
+      if (block.type === 'code') acc[i] = block.value;
+      return acc;
+    }, {});
+
+    panelBadges.innerHTML = proj.techBadges
+      .map(b => `<span class="px-2 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50 rounded text-xs">${b}</span>`)
+      .join('');
+  }
+
+  // ── Open / close panel ────────────────────────────────────────────────────
+  function openPanel(id) {
+    const proj = projectDataMap[id];
+    if (!proj) return;
+    activeId = id;
+    openedOnMobile = isMobile();
+
+    populatePanel(proj);
+
+    document.querySelectorAll('.proj-card').forEach(c => {
+      const isActive = c.dataset.id === id;
+      c.classList.toggle('ring-2', isActive);
+      c.classList.toggle('ring-emerald-400', isActive);
+    });
+
+    if (openedOnMobile) {
+      const clickedCard = cardsGrid.querySelector(`.proj-card[data-id="${id}"]`);
+      clickedCard.insertAdjacentElement('afterend', panel);
+      panel.style.width     = '100%';
+      panel.style.maxHeight = '0';
+      panel.classList.remove('hidden');
+      panel.classList.add('flex');
+      requestAnimationFrame(() => {
+        panel.style.maxHeight = '80vh';
+        clickedCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    } else {
+      if (panel.parentElement !== panelOriginalParent) {
+        panelOriginalAnchor.insertAdjacentElement('afterend', panel);
+      }
+      panel.style.maxHeight = 'none';
+      panel.style.width     = '0';
+      cardsGrid.classList.remove('md:grid-cols-2');
+      cardsGrid.classList.add('grid-cols-1');
+      cardsCol.style.width = '42%';
+      panel.classList.remove('hidden');
+      panel.classList.add('flex');
+      requestAnimationFrame(() => { panel.style.width = '58%'; });
+    }
+  }
+
+  function closePanel() {
+    activeId = '';
+
+    document.querySelectorAll('.proj-card').forEach(c => {
+      c.classList.remove('ring-2', 'ring-emerald-400');
+    });
+
+    if (openedOnMobile) {
+      panel.style.maxHeight = '0';
+      setTimeout(() => {
+        panel.classList.remove('flex');
+        panel.classList.add('hidden');
+        panel.style.width = '0';
+        panelOriginalAnchor.insertAdjacentElement('afterend', panel);
+      }, 300);
+    } else {
+      panel.style.width = '0';
+      setTimeout(() => {
+        panel.classList.remove('flex');
+        panel.classList.add('hidden');
+        panel.style.maxHeight = '0';
+      }, 300);
+      cardsCol.style.width = '';
+      cardsGrid.classList.add('md:grid-cols-2');
+      cardsGrid.classList.remove('grid-cols-1');
+    }
+  }
+
+  // ── Resize handler ────────────────────────────────────────────────────────
+  let resizeTimer;
+  let lastBreakpoint = isMobile() ? 'mobile' : 'desktop';
+
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const newBreakpoint = isMobile() ? 'mobile' : 'desktop';
+      if (newBreakpoint !== lastBreakpoint) {
+        lastBreakpoint = newBreakpoint;
+        const savedId = activeId;
+        resetLayout();
+        activeId = '';
+        if (savedId) requestAnimationFrame(() => openPanel(savedId));
+      }
+    }, 150);
+  });
+
+  // ── Card click events ─────────────────────────────────────────────────────
+  document.querySelectorAll('.proj-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.dataset.id;
+      if (id === activeId) closePanel();
+      else openPanel(id);
+    });
+  });
+
+  panelClose.addEventListener('click', closePanel);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+  // ── Copy-to-clipboard (event delegation on panel body) ───────────────────
+  panelContent.addEventListener('click', e => {
+    const btn = e.target.closest('.copy-btn');
+    if (!btn) return;
+    const idx = btn.dataset.block;
+    const code = panelContent._codeBlocks?.[idx];
+    if (!code) return;
+    navigator.clipboard.writeText(code).then(() => {
+      const orig = btn.innerHTML;
+      btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+      btn.classList.add('text-emerald-400');
+      setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('text-emerald-400'); }, 2000);
+    });
+  });
+</script>
+
+<style>
+  .glow-heading {
+    color: #059669;
+    text-shadow:
+      0 0 8px rgba(16, 185, 129, 0.6),
+      0 0 20px rgba(16, 185, 129, 0.35),
+      0 0 40px rgba(16, 185, 129, 0.15);
+  }
+
+  :global(.dark) .glow-heading {
+    color: #f0fdf4;
+    text-shadow:
+      0 0 10px rgba(52, 211, 153, 0.65),
+      0 0 28px rgba(52, 211, 153, 0.40),
+      0 0 55px rgba(52, 211, 153, 0.20);
+  }
+
+  /* code block window-chrome dots */
+  .code-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .active-filter {
+    background-color: rgb(16 185 129 / 0.12);
+    border-color: #10b981;
+    color: #059669;
+    font-weight: 600;
+  }
+
+  :global(.dark) .active-filter {
+    background-color: rgb(52 211 153 / 0.15);
+    border-color: #34d399;
+    color: #34d399;
+  }
+</style>

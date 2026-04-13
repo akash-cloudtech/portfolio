@@ -1,0 +1,20 @@
+{
+  "id": "slo-observability",
+  "title": "SLO/SLI Observability Framework",
+  "company": "touchnet",
+  "period": "2022",
+  "featured": false,
+  "categories": ["SRE", "Observability", "GCP"],
+  "summary": "Built reliability frameworks with SLOs, error budgets, and real-time dashboards for AI and enterprise services.",
+  "metrics": [
+    { "value": "99.99%", "label": "Uptime Achieved" },
+    { "value": "15min", "label": "MTTR ↓" }
+  ],
+  "techBadges": ["GCP", "Prometheus", "Grafana", "Python", "PagerDuty"],
+  "content": [
+    { "type": "text", "value": "Without formal SLOs, incidents were reactive and ad-hoc. Teams had no shared definition of reliability, making it hard to prioritize toil vs. feature work or justify reliability investments." },
+    { "type": "text", "value": "Defined SLIs for availability, latency, and error rate across all critical services. Translated these into SLOs with rolling 30-day error budget tracking. Built Grafana dashboards surfacing live error budget burn rates, alerting thresholds, and service health at a glance." },
+    { "type": "text", "value": "Implemented multi-window, multi-burn-rate alerting in Prometheus to catch slow burns before they exhausted error budgets. PagerDuty routing policies were tied directly to error budget consumption rate rather than raw metric thresholds." },
+    { "type": "text", "value": "Outcome: achieved 99.99% uptime across core payment services, reduced mean time to recovery (MTTR) from 45 minutes to under 15 minutes, and gave product teams data to make informed reliability trade-offs." }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "gitops-argocd",
+  "title": "GitOps Platform with ArgoCD",
+  "company": "touchnet",
+  "period": "2024",
+  "featured": false,
+  "categories": ["CI/CD", "Kubernetes", "Automation"],
+  "summary": "Established GitOps workflows using ArgoCD for declarative Kubernetes deployments across environments.",
+  "metrics": [
+    { "value": "50+", "label": "Apps Managed" },
+    { "value": "Zero", "label": "Config Drift" }
+  ],
+  "techBadges": ["ArgoCD", "Kubernetes", "Helm", "GitHub Actions", "Terraform"],
+  "content": [
+    { "type": "text", "value": "Kubernetes deployments were applied manually via kubectl by multiple engineers, leading to configuration drift between environments. There was no audit trail and rollbacks required manual YAML edits." },
+    { "type": "text", "value": "Rolled out ArgoCD as the single deployment plane for all Kubernetes clusters. Every application was expressed as a Helm chart in a dedicated GitOps repo. ArgoCD continuously reconciled cluster state with Git, flagging and auto-healing any drift." },
+    { "type": "text", "value": "Implemented App-of-Apps patterns to manage 50+ microservices from a single repo. Progressive delivery with ArgoCD Rollouts enabled canary and blue-green strategies with automated analysis using Prometheus metrics." },
+    { "type": "text", "value": "Outcome: zero configuration drift across all clusters, full deployment audit trail in Git history, rollbacks reduced to a single git revert, and deployment frequency increased from weekly to multiple times daily." }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "microservices-springboot",
+  "title": "Spring Boot Microservices Architecture",
+  "company": "justdial",
+  "period": "2017",
+  "featured": false,
+  "categories": ["Backend", "Microservices", "CI/CD"],
+  "summary": "Contributed to decomposing a monolithic Java application into Spring Boot microservices with REST APIs.",
+  "metrics": [
+    { "value": "10+", "label": "Services Extracted" },
+    { "value": "3×", "label": "Deploy Frequency ↑" }
+  ],
+  "techBadges": ["Java", "Spring Boot", "MySQL", "Jenkins", "Docker"],
+  "content": [
+    { "type": "text", "value": "Justdial's core backend was a large Java monolith that had diverged into a tangle of inter-dependencies. Deployments required the entire application to be released together, making it impossible to ship features independently across teams." },
+    { "type": "text", "value": "As part of a wider engineering initiative, contributed to decomposing the monolith into Spring Boot microservices following domain-driven design boundaries. Implemented REST API contracts using Spring MVC and OpenAPI specifications for each extracted service." },
+    { "type": "text", "value": "Each microservice was packaged as a Docker container and deployed via Jenkins pipelines. MySQL databases were separated by service with careful data migration strategies for services that shared tables in the original monolith." },
+    { "type": "text", "value": "Extracted 10+ services within a year. Teams owning individual services could now deploy 3× more frequently. The deployment risk of releasing one service no longer impacted the availability of unrelated services." }
+  ]
+}

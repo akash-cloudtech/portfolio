@@ -1,0 +1,20 @@
+{
+  "id": "etl-pipeline",
+  "title": "Azure Data Factory ETL Pipelines",
+  "company": "touchnet",
+  "period": "2023",
+  "featured": false,
+  "categories": ["Automation", "Azure", "Data"],
+  "summary": "Designed and automated ETL pipelines in Azure Data Factory for SQL, APIs, and Blob Storage ingestion.",
+  "metrics": [
+    { "value": "12+", "label": "Pipelines Built" },
+    { "value": "$8k", "label": "Infra Savings/mo" }
+  ],
+  "techBadges": ["Azure Data Factory", "Azure Blob", "SQL", "Python", "Terraform"],
+  "content": [
+    { "type": "text", "value": "Data ingestion across multiple sources — on-prem SQL databases, REST APIs, and Azure Blob Storage — was handled by a mix of cron jobs and manual exports. Data freshness SLAs were being missed and pipeline failures went undetected for hours." },
+    { "type": "text", "value": "Rebuilt all ingestion workflows as parameterized Azure Data Factory pipelines. Each pipeline used dynamic content and metadata-driven patterns so one template handled 10+ source-destination pairs without duplication. Terraform managed all ADF resources, linked services, and trigger schedules." },
+    { "type": "text", "value": "Implemented monitoring using ADF diagnostic logs shipped to Azure Monitor. Failure alerts fired within 2 minutes of any pipeline error, and auto-retry policies with exponential backoff handled transient API failures gracefully." },
+    { "type": "text", "value": "Outcome: 12 production pipelines running reliably with 99.8% success rate, data freshness SLAs met consistently, and infrastructure costs reduced by $8k/month by replacing overprovisioned VMs with serverless ADF integration runtimes." }
+  ]
+}

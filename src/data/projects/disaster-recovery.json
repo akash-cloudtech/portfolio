@@ -1,0 +1,20 @@
+{
+  "id": "disaster-recovery",
+  "title": "Self-Healing Disaster Recovery System",
+  "company": "quotient",
+  "period": "2020",
+  "featured": false,
+  "categories": ["SRE", "Automation", "Observability"],
+  "summary": "Implemented automated DR runbooks with self-healing triggers on GCP for production critical services.",
+  "metrics": [
+    { "value": "90%", "label": "MTTR Reduction" },
+    { "value": "99.95%", "label": "SLA Achieved" }
+  ],
+  "techBadges": ["GCP", "Terraform", "Python", "PagerDuty", "Ansible"],
+  "content": [
+    { "type": "text", "value": "Quotient's production services had documented DR runbooks but they relied on on-call engineers to manually execute multi-step recovery procedures. During incidents, human error and stress led to prolonged outages, violating SLA commitments." },
+    { "type": "text", "value": "Converted all DR runbooks into Ansible playbooks parameterised by failure scenario. A Python orchestrator subscribed to PagerDuty webhooks and, upon alert firing, matched alert labels to the appropriate playbook and triggered automated execution." },
+    { "type": "text", "value": "Built a confidence scoring system: low-risk remediations (pod restart, cache flush) executed automatically; medium-risk (traffic failover) required a single Slack approval; high-risk (data restore) paged a human. GCP Cloud Monitoring dashboards provided real-time visibility during automated recovery." },
+    { "type": "text", "value": "MTTR reduced by 90% — from an average of 45 minutes to under 5 minutes for automated scenarios. Achieved 99.95% SLA uptime across all critical services for two consecutive quarters." }
+  ]
+}

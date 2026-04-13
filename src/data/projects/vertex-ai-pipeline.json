@@ -1,0 +1,27 @@
+{
+  "id": "vertex-ai-pipeline",
+  "title": "Vertex AI ML Pipeline Automation",
+  "company": "touchnet",
+  "period": "2023",
+  "featured": true,
+  "categories": ["AI/ML", "GCP", "Automation"],
+  "summary": "End-to-end automated ML training, deployment, and monitoring pipelines on Google Cloud.",
+  "metrics": [
+    { "value": "70%", "label": "Deploy Time ↓" },
+    { "value": "99.9%", "label": "Pipeline Uptime" }
+  ],
+  "techBadges": ["Vertex AI", "Kubeflow", "Python", "Terraform", "GCP"],
+  "content": [
+    { "type": "text", "value": "AI/ML workloads at TouchNet required repeatable, production-grade pipelines that could handle training, evaluation, and deployment without manual intervention. The existing process relied on ad-hoc scripts that broke frequently under high-load scenarios." },
+    { "type": "callout", "variant": "info", "title": "Key Design Decision", "value": "We chose Kubeflow Pipelines over Vertex AI Managed Pipelines to retain portability — the same DAG compiles to run on any Kubeflow cluster, decoupling us from GCP vendor lock-in at the pipeline layer." },
+    { "type": "text", "value": "Designed and deployed automated pipelines on Google Cloud Vertex AI and Kubeflow. Each pipeline stage — data ingestion, preprocessing, training, evaluation, and model registration — was containerized and orchestrated via Kubeflow Pipelines DSL. Terraform managed all GCP infrastructure including Vertex AI endpoints, GCS buckets, and IAM bindings." },
+    { "type": "code", "lang": "python", "label": "pipeline.py", "value": "@component(base_image='python:3.10-slim')\ndef evaluate_model(\n    model_dir: Input[Model],\n    metrics_out: Output[Metrics],\n    threshold: float = 0.92,\n) -> NamedTuple('Outputs', [('approved', bool)]):\n    import json, pathlib\n    results = json.loads((pathlib.Path(model_dir.path) / 'eval.json').read_text())\n    approved = results['accuracy'] >= threshold\n    metrics_out.log_metric('accuracy', results['accuracy'])\n    metrics_out.log_metric('approved', int(approved))\n    return (approved,)" },
+    { "type": "callout", "variant": "warning", "title": "Gotcha", "value": "Vertex AI Pipelines serialises component arguments as JSON. Avoid passing large numpy arrays between components — always write to GCS and pass the URI instead, or pipeline submission latency spikes dramatically." },
+    { "type": "text", "value": "Integrated pipeline triggers with GitHub Actions so any merge to main automatically kicked off a training run. Monitoring dashboards tracked model drift, latency, and error budgets via SLIs. Failed runs triggered PagerDuty alerts and auto-rollback to the last stable model version." },
+    { "type": "callout", "variant": "success", "title": "Outcome", "value": "Reduced manual deployment effort by 70%, achieved 99.9% pipeline uptime over 12 months, and enabled the data science team to ship model updates 3× faster than before." },
+    { "type": "links", "title": "References", "items": [
+      { "label": "Kubeflow Pipelines SDK", "url": "https://www.kubeflow.org/docs/components/pipelines/", "icon": "doc" },
+      { "label": "Vertex AI Docs", "url": "https://cloud.google.com/vertex-ai/docs", "icon": "link" }
+    ]}
+  ]
+}

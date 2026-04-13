@@ -1,0 +1,20 @@
+{
+  "id": "gke-eks-migration",
+  "title": "EKS to GKE Kubernetes Migration",
+  "company": "quotient",
+  "period": "2021",
+  "featured": true,
+  "categories": ["Kubernetes", "Migration", "Cloud"],
+  "summary": "Migrated 30+ microservices from AWS EKS to GCP GKE with automated rollout and traffic switching.",
+  "metrics": [
+    { "value": "30+", "label": "Services Migrated" },
+    { "value": "40%", "label": "Infra Cost ↓" }
+  ],
+  "techBadges": ["GKE", "EKS", "Terraform", "Helm", "Istio"],
+  "content": [
+    { "type": "text", "value": "Quotient's microservices ran on AWS EKS across two regions. The company was standardising on GCP and needed all Kubernetes workloads moved to GKE without disrupting the CI/CD pipelines or production traffic serving ad-tech requests at high volume." },
+    { "type": "text", "value": "Re-wrote all Helm charts to be cloud-agnostic, parameterising storage classes, load-balancer annotations and node selectors. Terraform modules were authored for GKE cluster provisioning with identical topology to the EKS setup. Istio service mesh was installed on GKE clusters to enable fine-grained traffic management." },
+    { "type": "text", "value": "Ran GKE clusters in parallel with EKS for 3 weeks. Shift traffic gradually per service using Istio weighted virtual services (10% → 50% → 100%). Automated smoke tests validated each service before completing the shift." },
+    { "type": "text", "value": "Migration completed in 6 weeks with zero traffic incidents. Infrastructure cost reduced by 40% through GCP Spot Node Pools for non-critical workloads and committed-use discounts. CI/CD pipelines updated to target GKE with no developer-facing changes." }
+  ]
+}

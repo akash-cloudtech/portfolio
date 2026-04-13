@@ -1,0 +1,20 @@
+{
+  "id": "terraform-infra",
+  "title": "Terraform Cloud Infrastructure Automation",
+  "company": "quotient",
+  "period": "2020",
+  "featured": false,
+  "categories": ["Infrastructure", "Terraform", "Automation"],
+  "summary": "Authored a library of Terraform modules to provision and manage all cloud infrastructure as code.",
+  "metrics": [
+    { "value": "100%", "label": "Infra as Code" },
+    { "value": "3×", "label": "Provision Speed ↑" }
+  ],
+  "techBadges": ["Terraform", "AWS", "GCP", "Vault", "Atlantis"],
+  "content": [
+    { "type": "text", "value": "Infrastructure at Quotient was provisioned manually via cloud consoles and bespoke scripts. There was no consistent state management, making auditing, disaster recovery and environment cloning extremely slow and error-prone." },
+    { "type": "text", "value": "Developed an internal Terraform module library covering networking (VPC, subnets, peering), compute (EC2, GKE, managed instance groups), databases (RDS, Cloud SQL), and security (IAM, KMS, Secret Manager). Modules were versioned in a private Terraform registry." },
+    { "type": "text", "value": "Adopted Atlantis for GitOps-style Terraform workflows — every infrastructure change goes through a Pull Request with automated plan output for review before apply. Vault was integrated for dynamic secret injection eliminating hardcoded credentials in Terraform state." },
+    { "type": "text", "value": "100% of cloud infrastructure converted to Terraform in 4 months. Environment provisioning time reduced from days to under 2 hours. Drift detection jobs ran nightly and filed auto-tickets for any unapproved manual changes." }
+  ]
+}

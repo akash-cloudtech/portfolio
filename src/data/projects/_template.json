@@ -1,0 +1,83 @@
+{
+  "_readme": "Copy this file, rename it to your-project-slug.json, fill in the fields, and delete all '_comment' keys. The file will auto-render on the projects page.",
+
+  "id": "your-project-slug",
+  "_comment_id": "Unique kebab-case slug. Must match the filename (minus .json).",
+
+  "title": "Your Project Title",
+
+  "company": "touchnet",
+  "_comment_company": "Must match the 'id' field of an experience JSON in src/data/experiences/. Options: touchnet | quotient | zycus | justdial",
+
+  "period": "2024",
+  "_comment_period": "Year (or range like '2023-2024'). Used for sorting within a company.",
+
+  "featured": false,
+  "_comment_featured": "Set true to pin this project to the top of the list (shows a ★ on the card).",
+
+  "categories": ["CI/CD", "Automation"],
+  "_comment_categories": "Free-form tags. These auto-populate the Category filter bar. Reuse existing ones where possible for clean filtering.\n  Existing categories: AI/ML, AWS, Automation, Azure, Backend, CI/CD, Cloud, Containers, Data, DevOps, GCP, Infrastructure, Kubernetes, Linux, Microservices, Migration, Observability, Scripting, Security, SRE, Terraform",
+
+  "summary": "One sentence shown on the card — what you built and why it mattered.",
+
+  "metrics": [
+    { "value": "80%", "label": "Time Saved" },
+    { "value": "99.9%", "label": "Uptime" }
+  ],
+  "_comment_metrics": "2-3 punchy numbers shown on the card and enlarged in the detail panel. Keep labels short (≤ 15 chars).",
+
+  "techBadges": ["Terraform", "Python", "Kubernetes"],
+  "_comment_techBadges": "Technologies shown as pills. First 3 appear on the card; the rest appear only in the detail panel.",
+
+  "content": [
+    {
+      "type": "text",
+      "value": "Plain paragraph. Describe the problem / context here.",
+      "_comment": "Use multiple text blocks rather than one giant paragraph."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Key Decision",
+      "value": "Explain a key architectural or technical decision and why you made it.",
+      "_comment_variant": "Options: info (blue) | warning (yellow) | success (green) | tip (purple)"
+    },
+    {
+      "type": "text",
+      "value": "Describe the solution / implementation."
+    },
+    {
+      "type": "code",
+      "lang": "terraform",
+      "label": "main.tf",
+      "value": "resource \"aws_s3_bucket\" \"example\" {\n  bucket = \"my-project-bucket\"\n  tags = {\n    Environment = \"prod\"\n  }\n}",
+      "_comment_lang": "Any string: terraform | python | yaml | bash | go | javascript | json | hcl",
+      "_comment_label": "Filename shown in the code block header bar.",
+      "_comment_value": "The raw code string. Use \\n for newlines and \\\" for quotes inside the JSON string."
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "Gotcha",
+      "value": "A pitfall or non-obvious issue others should know about."
+    },
+    {
+      "type": "callout",
+      "variant": "success",
+      "title": "Outcome",
+      "value": "Quantified results — tie back to the metrics above."
+    },
+    {
+      "type": "links",
+      "title": "References",
+      "items": [
+        { "label": "GitHub Repo", "url": "https://github.com/your-repo", "icon": "github" },
+        { "label": "Docs", "url": "https://docs.example.com", "icon": "doc" },
+        { "label": "Blog Post", "url": "https://blog.example.com", "icon": "blog" },
+        { "label": "Live Link", "url": "https://example.com", "icon": "link" }
+      ],
+      "_comment_icon": "Options: github | doc | blog | link",
+      "_comment": "All items optional — include only the links that exist."
+    }
+  ]
+}

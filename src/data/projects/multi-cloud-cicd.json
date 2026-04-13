@@ -1,0 +1,20 @@
+{
+  "id": "multi-cloud-cicd",
+  "title": "Multi-Cloud CI/CD Platform",
+  "company": "quotient",
+  "period": "2021",
+  "featured": false,
+  "categories": ["CI/CD", "Automation", "Cloud"],
+  "summary": "Built a unified CI/CD platform spanning AWS, GCP and Azure for 40+ development teams.",
+  "metrics": [
+    { "value": "40+", "label": "Teams Onboarded" },
+    { "value": "65%", "label": "Release Cycle ↓" }
+  ],
+  "techBadges": ["Jenkins", "GitHub Actions", "Terraform", "Artifactory", "AWS", "GCP", "Azure"],
+  "content": [
+    { "type": "text", "value": "Quotient operated across three cloud providers with each team maintaining its own CI/CD pipeline. This resulted in inconsistent deployment standards, duplicated pipeline scripts, and no centralised visibility into release quality." },
+    { "type": "text", "value": "Designed a multi-cloud CI/CD platform built on reusable GitHub Actions workflows and shared Terraform pipeline modules. A central pipeline registry allowed teams to reference standardised build, test, and deploy stages without writing their own from scratch." },
+    { "type": "text", "value": "Implemented Artifactory as the unified artifact repository across all clouds. Automated policy gates enforced SAST scanning, unit-test coverage thresholds, and container vulnerability scanning before any artifact could be promoted to staging or production." },
+    { "type": "text", "value": "40+ teams onboarded within 3 months. Release cycle reduced by 65% across teams due to parallel pipeline execution and elimination of manual deployment steps. Central dashboard provided real-time deployment status across all three clouds." }
+  ]
+}

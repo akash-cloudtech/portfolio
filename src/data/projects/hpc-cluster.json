@@ -1,0 +1,20 @@
+{
+  "id": "hpc-cluster",
+  "title": "GPU-Based HPC Cluster Build",
+  "company": "touchnet",
+  "period": "2023",
+  "featured": true,
+  "categories": ["AI/ML", "Infrastructure", "GCP"],
+  "summary": "Built and optimized GPU clusters (NVIDIA DGX, GKE nodes, Cisco UCS) for AI workloads.",
+  "metrics": [
+    { "value": "3×", "label": "Throughput ↑" },
+    { "value": "40%", "label": "Cost Savings" }
+  ],
+  "techBadges": ["NVIDIA DGX", "GKE", "Cisco UCS", "Ansible", "Kubernetes"],
+  "content": [
+    { "type": "text", "value": "TouchNet's AI workloads outgrew shared cloud VMs. Training runs for large models were taking 10+ hours due to resource contention and lack of GPU scheduling. A purpose-built HPC environment was needed." },
+    { "type": "text", "value": "Designed and provisioned a hybrid GPU cluster combining NVIDIA DGX A100 nodes on-premises, GKE GPU node pools in GCP, and Cisco UCS blades for CPU-bound preprocessing. Ansible playbooks automated OS provisioning, CUDA driver installation, and DCGM exporter setup for GPU telemetry." },
+    { "type": "text", "value": "Kubernetes GPU resource quotas and node affinity rules ensured fair scheduling across teams. A custom autoscaler scaled GKE GPU nodes up during peak training windows and down overnight, cutting idle GPU costs by 40%." },
+    { "type": "text", "value": "Outcome: model training throughput increased 3×, idle GPU spend dropped 40%, and the cluster handled 20+ concurrent experiments without contention." }
+  ]
+}

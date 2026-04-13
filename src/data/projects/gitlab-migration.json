@@ -1,0 +1,20 @@
+{
+  "id": "gitlab-migration",
+  "title": "GitLab & Icinga Infrastructure Upgrades",
+  "company": "zycus",
+  "period": "2019",
+  "featured": false,
+  "categories": ["DevOps", "CI/CD", "Automation"],
+  "summary": "Upgraded GitLab CE and Icinga monitoring stack with zero downtime using automated migration scripts.",
+  "metrics": [
+    { "value": "0", "label": "Downtime Hours" },
+    { "value": "100%", "label": "Data Preserved" }
+  ],
+  "techBadges": ["GitLab", "Icinga2", "Ansible", "PostgreSQL", "Bash"],
+  "content": [
+    { "type": "text", "value": "Zycus was running outdated versions of GitLab CE and Icinga2 that were several major releases behind, accumulating security vulnerabilities and missing features. Upgrading them manually carried risk of data loss and tool downtime." },
+    { "type": "text", "value": "Planned a multi-hop upgrade path for GitLab (skipping directly to the latest LTS was unsupported) and scripted each intermediate upgrade step as an Ansible playbook. Pre-upgrade snapshots of the PostgreSQL database and repository storage were automated as a safety net." },
+    { "type": "text", "value": "Icinga2 was migrated from its legacy configuration format to the new DSL config management approach simultaneously. All host and service checks were re-expressed as Icinga Director config objects with automated import from the existing configuration." },
+    { "type": "text", "value": "Both upgrades completed during scheduled maintenance windows with zero downtime. All Git repositories, CI/CD history, monitoring checks, and notification rules were preserved. Security vulnerability backlog for both tools was cleared." }
+  ]
+}
