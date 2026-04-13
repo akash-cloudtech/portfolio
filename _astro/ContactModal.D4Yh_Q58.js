@@ -1,0 +1,21 @@
+import{j as e}from"./jsx-runtime.D_zvdyIk.js";import{r as c}from"./index.DiEladB3.js";import{c as t,X as u}from"./x.DJ4uMlJ0.js";/**
+ * @license lucide-react v0.575.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const b=[["path",{d:"M20 6 9 17l-5-5",key:"1gmf2c"}]],d=t("check",b);/**
+ * @license lucide-react v0.575.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const f=[["rect",{width:"14",height:"14",x:"8",y:"8",rx:"2",ry:"2",key:"17jyea"}],["path",{d:"M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2",key:"zix9uf"}]],x=t("copy",f);/**
+ * @license lucide-react v0.575.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const j=[["path",{d:"m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7",key:"132q7q"}],["rect",{x:"2",y:"4",width:"20",height:"16",rx:"2",key:"izxlao"}]],g=t("mail",j);/**
+ * @license lucide-react v0.575.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const v=[["path",{d:"M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384",key:"9njp5v"}]],N=t("phone",v),C=()=>{const[a,l]=c.useState(!1),[r,n]=c.useState(null),s="averma7304@gmail.com",o="+1 9133886757",i=async(m,h)=>{try{await navigator.clipboard.writeText(m),n(h),setTimeout(()=>n(null),2e3)}catch(p){console.error("Failed to copy text: ",p)}};return e.jsxs("div",{className:"relative inline-block",children:[e.jsx("button",{onClick:()=>l(!a),className:"px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-lg transition-colors border border-slate-700",children:"Contact Me"}),a&&e.jsxs("div",{className:"absolute top-full left-0 mt-4 z-50 w-80 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl shadow-emerald-900/20 p-5 animate-in fade-in slide-in-from-top-4 duration-200",children:[e.jsx("button",{onClick:()=>l(!1),className:"absolute top-3 right-3 text-slate-400 hover:text-slate-200 transition-colors",children:e.jsx(u,{size:18})}),e.jsx("h3",{className:"text-xl font-bold text-slate-100 mb-1",children:"Get in Touch"}),e.jsx("p",{className:"text-slate-400 text-sm mb-4",children:"Feel free to reach out!"}),e.jsxs("div",{className:"space-y-3",children:[e.jsxs("div",{className:"flex items-center justify-between p-3 bg-slate-800/50 border border-slate-700 rounded-lg hover:border-emerald-500/30 transition-colors group",children:[e.jsxs("a",{href:`mailto:${s}`,className:"flex items-center gap-3 text-slate-200 hover:text-emerald-400 transition-colors flex-grow overflow-hidden",children:[e.jsx("div",{className:"p-1.5 bg-slate-800 rounded-md group-hover:bg-emerald-900/30 transition-colors flex-shrink-0",children:e.jsx(g,{size:16,className:"text-emerald-400"})}),e.jsx("span",{className:"font-mono text-xs truncate",children:s})]}),e.jsx("button",{onClick:()=>i(s,"email"),className:"p-1.5 text-slate-400 hover:text-emerald-400 transition-colors flex-shrink-0",title:"Copy Email",children:r==="email"?e.jsx(d,{size:16,className:"text-emerald-400"}):e.jsx(x,{size:16})})]}),e.jsxs("div",{className:"flex items-center justify-between p-3 bg-slate-800/50 border border-slate-700 rounded-lg hover:border-emerald-500/30 transition-colors group",children:[e.jsxs("a",{href:`tel:${o.replace(/\s/g,"")}`,className:"flex items-center gap-3 text-slate-200 hover:text-emerald-400 transition-colors flex-grow overflow-hidden",children:[e.jsx("div",{className:"p-1.5 bg-slate-800 rounded-md group-hover:bg-emerald-900/30 transition-colors flex-shrink-0",children:e.jsx(N,{size:16,className:"text-emerald-400"})}),e.jsx("span",{className:"font-mono text-xs truncate",children:o})]}),e.jsx("button",{onClick:()=>i(o,"phone"),className:"p-1.5 text-slate-400 hover:text-emerald-400 transition-colors flex-shrink-0",title:"Copy Phone",children:r==="phone"?e.jsx(d,{size:16,className:"text-emerald-400"}):e.jsx(x,{size:16})})]})]})]})]})};export{C as default};
