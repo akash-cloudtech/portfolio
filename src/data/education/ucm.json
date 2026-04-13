@@ -1,0 +1,11 @@
+{
+  "id": "ucm",
+  "degree": "MS in Computer Science",
+  "institution": "University of Central Missouri",
+  "location": "Warrensburg, MO, USA",
+  "duration": "Aug 2021 - Dec 2022",
+  "link": "https://www.ucmo.edu/",
+  "image": "/portfolio/images/education/ucm.png",
+  "coursework": ["Cloud Computing", "Advanced Algorithms", "Big Data Analytics", "Machine Learning"],
+  "skills": ["AWS", "Python", "Research"]
+}

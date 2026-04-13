@@ -1,0 +1,11 @@
+{
+  "id": "cdac",
+  "degree": "PGD - IT Infrastructure & Security",
+  "institution": "Centre for Development of Advanced Computing (C-DAC)",
+  "location": "Pune, India",
+  "duration": "Feb 2017 - Aug 2017",
+  "link": "https://cdac.in/",
+  "image": "/portfolio/images/education/cdac.jpg",
+  "coursework": ["System Administration", "Network Security", "Ethical Hacking", "Cloud Architecture"],
+  "skills": ["Linux", "Bash", "Networking"]
+}

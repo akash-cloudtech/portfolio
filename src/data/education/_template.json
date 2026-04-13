@@ -1,0 +1,35 @@
+{
+  "_readme": "Copy this file, rename it to your-institution-slug.json, fill in the fields, and delete all '_comment' keys. The file will auto-render on the education page sorted by start date (most recent first).",
+
+  "id": "your-institution-slug",
+  "_comment_id": "Unique kebab-case slug. Must match the filename (minus .json). Keep it short and stable e.g. 'mit', 'stanford', 'iit-bombay'.",
+
+  "degree": "MS in Computer Science",
+  "_comment_degree": "Full degree name exactly as it appears on your transcript / certificate.",
+
+  "institution": "Full University / Institution Name",
+  "_comment_institution": "Official name. Parentheticals are fine e.g. 'Centre for Development of Advanced Computing (C-DAC)'.",
+
+  "location": "City, State, Country",
+  "_comment_location": "Human-readable location shown under the institution name.",
+
+  "duration": "Aug 2021 - Dec 2022",
+  "_comment_duration": "Format: 'Mon YYYY - Mon YYYY'. Used both for display and for sorting (most recent start date first).\n  Month abbreviations: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec",
+
+  "link": "https://www.university.edu/",
+  "_comment_link": "Official university / institution website. Opens in a new tab via the external-link icon on the card.",
+
+  "image": "/portfolio/images/education/your-slug.png",
+  "_comment_image": "Path relative to the public/ folder. Add the image file to public/images/education/. Recommended size: landscape, at least 800×400px. Supports .png, .jpg, .webp.",
+
+  "coursework": [
+    "Course Name One",
+    "Course Name Two",
+    "Course Name Three",
+    "Course Name Four"
+  ],
+  "_comment_coursework": "Relevant courses shown in the terminal-style block on the card. 3-6 items recommended.",
+
+  "skills": ["Python", "AWS", "Research"],
+  "_comment_skills": "Short skill tags you gained from this program. Not currently rendered on the card but available for future use."
+}

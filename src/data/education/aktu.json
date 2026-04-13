@@ -1,0 +1,11 @@
+{
+  "id": "aktu",
+  "degree": "B.Tech in Electronics & Comm.",
+  "institution": "Dr. A.P.J. Abdul Kalam Technical University",
+  "location": "Uttar Pradesh, India",
+  "duration": "Jul 2012 - Jun 2016",
+  "link": "https://aktu.ac.in/",
+  "image": "/portfolio/images/education/aktu.jpg",
+  "coursework": ["Embedded Systems", "VLSI Design", "Microprocessors", "Digital Communication"],
+  "skills": ["C++", "Circuit Design", "IoT"]
+}

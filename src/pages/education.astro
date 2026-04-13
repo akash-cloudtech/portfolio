@@ -2,38 +2,22 @@
 import Layout from '../layouts/Layout.astro';
 import { BookOpen, MapPin, Calendar, ExternalLink, Terminal, Code, Cpu } from 'lucide-react';
 
-const education = [
-  {
-    degree: "MS in Computer Science",
-    institution: "University of Central Missouri",
-    location: "Warrensburg, MO, USA",
-    duration: "Aug 2021 - Dec 2022",
-    link: "https://www.ucmo.edu/",
-    image: "/portfolio/images/education/ucm.png", 
-    coursework: ["Cloud Computing", "Advanced Algorithms", "Big Data Analytics", "Machine Learning"],
-    skills: ["AWS", "Python", "Research"]
-  },
-  {
-    degree: "PGD - IT Infrastructure & Security",
-    institution: "Centre for Development of Advanced Computing (C-DAC)",
-    location: "Pune, India",
-    duration: "Feb 2017 - Aug 2017",
-    link: "https://cdac.in/",
-    image: "/portfolio/images/education/cdac.jpg", 
-    coursework: ["System Administration", "Network Security", "Ethical Hacking", "Cloud Architecture"],
-    skills: ["Linux", "Bash", "Networking"]
-  },
-  {
-    degree: "B.Tech in Electronics & Comm.",
-    institution: "Dr. A.P.J. Abdul Kalam Technical University",
-    location: "Uttar Pradesh, India",
-    duration: "Jul 2012 - Jun 2016",
-    link: "https://aktu.ac.in/",
-    image: "/portfolio/images/education/aktu.jpg", 
-    coursework: ["Embedded Systems", "VLSI Design", "Microprocessors", "Digital Communication"],
-    skills: ["C++", "Circuit Design", "IoT"]
-  }
-];
+// Auto-loads all JSON files from src/data/education/*.json (excludes _*.json templates/drafts)
+const eduModules = import.meta.glob(['../data/education/*.json', '!../data/education/_*.json'], { eager: true });
+
+const MONTHS: Record<string, number> = {
+  Jan:1, Feb:2, Mar:3, Apr:4, May:5, Jun:6,
+  Jul:7, Aug:8, Sep:9, Oct:10, Nov:11, Dec:12
+};
+function parseDurationStart(duration: string): number {
+  const part = duration.split(/\s[-–]\s/)[0].trim(); // "Aug 2021"
+  const [mon, yr] = part.split(' ');
+  return (parseInt(yr) * 12) + (MONTHS[mon] ?? 0);
+}
+
+const education = (Object.values(eduModules) as any[])
+  .map((m: any) => m.default ?? m)
+  .sort((a: any, b: any) => parseDurationStart(b.duration) - parseDurationStart(a.duration)); // most recent first
 ---
 
 <Layout title="Education | Akash Verma">
